@@ -504,11 +504,39 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
   overflow: hidden;
   position: relative;
 }
+.phone-app::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: var(--primary);
+  border-radius: 20px;
+  z-index: 1;
+  opacity: 0.06;
+}
+.phone-app::after {
+  content: 'I';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--primary);
+  opacity: 0.06;
+  z-index: 1;
+  pointer-events: none;
+}
 .phone-slides {
   display: flex;
   width: 400%;
   height: 100%;
   animation: phoneScroll 12s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
 }
 .phone-slide {
   width: 25%;
