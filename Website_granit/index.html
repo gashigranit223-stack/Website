@@ -60,6 +60,154 @@ body {
   border-radius: 50%;
 }
 
+/* POPUP */
+.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 41, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  padding: 24px;
+}
+.popup-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.popup {
+  background: var(--white);
+  border-radius: var(--radius);
+  max-width: 480px;
+  width: 100%;
+  overflow: hidden;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 24px 80px rgba(15, 23, 41, 0.2);
+}
+.popup-overlay.show .popup {
+  transform: translateY(0) scale(1);
+}
+.popup-top {
+  background: linear-gradient(135deg, #1B4DFF, #6366F1);
+  padding: 32px 32px 28px;
+  color: var(--white);
+  text-align: center;
+  position: relative;
+}
+.popup-top-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.popup-top h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.popup-top p {
+  font-size: 0.88rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+.popup-price-highlight {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 16px;
+  background: rgba(255,255,255,0.12);
+  padding: 10px 24px;
+  border-radius: var(--radius-xs);
+}
+.popup-price-highlight .amount {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.popup-price-highlight .label {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.popup-body {
+  padding: 28px 32px 32px;
+}
+.popup-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.popup-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--dark-400);
+}
+.popup-feature .pcheck {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.popup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup-btn-primary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-xs);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+  text-decoration: none;
+}
+.popup-btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(27, 77, 255, 0.3);
+}
+.popup-btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: none;
+  color: var(--dark-400);
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  text-align: center;
+}
+.popup-btn-secondary:hover {
+  color: var(--dark);
+}
+
 /* ─── NAV ─── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -690,6 +838,35 @@ footer {
 </head>
 <body>
 
+<!-- POPUP -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup">
+    <div class="popup-top">
+      <div class="popup-top-badge">Tijdelijke actie</div>
+      <h2>Website laten maken</h2>
+      <p>Professioneel, snel en op maat — al vanaf</p>
+      <div class="popup-price-highlight">
+        <span class="amount">€349</span>
+        <span class="label">excl. BTW</span>
+      </div>
+    </div>
+    <div class="popup-body">
+      <div class="popup-features">
+        <div class="popup-feature"><div class="pcheck">✓</div>Responsive design voor elk apparaat</div>
+        <div class="popup-feature"><div class="pcheck">✓</div>Contactformulier inbegrepen</div>
+        <div class="popup-feature"><div class="pcheck">✓</div>SEO-geoptimaliseerd</div>
+        <div class="popup-feature"><div class="pcheck">✓</div>Oplevering binnen 2-3 weken</div>
+        <div class="popup-feature"><div class="pcheck">✓</div>Eenvoudig tot complex — jij kiest</div>
+      </div>
+      <div class="popup-buttons">
+        <a href="prijzen.html" class="popup-btn-primary">Bekijk alle pakketten</a>
+        <button class="popup-btn-secondary" onclick="closePopup()">Misschien later</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- ─── NAV ─── -->
 <nav id="mainNav">
   <div class="nav-inner">
@@ -1267,6 +1444,25 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const t = document.querySelector(href);
     if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
+});
+
+// Popup - verschijnt na 3 seconden
+setTimeout(function() {
+  if (!sessionStorage.getItem('popupClosed')) {
+    document.getElementById('popupOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}, 3000);
+
+function closePopup() {
+  document.getElementById('popupOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+  sessionStorage.setItem('popupClosed', 'true');
+}
+
+// Sluit ook als je op de achtergrond klikt
+document.getElementById('popupOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
 });
 </script>
 
