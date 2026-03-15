@@ -513,8 +513,20 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
 .phone-slide {
   width: 25%;
   height: 100%;
-  padding: 44px 16px 60px;
+  padding: 8px 16px 60px;
   flex-shrink: 0;
+}
+.phone-fixed-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.95), transparent);
 }
 .phone-slide:nth-child(1) {
   background: linear-gradient(180deg, var(--primary-light) 0%, var(--white) 40%);
