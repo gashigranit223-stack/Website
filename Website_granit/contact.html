@@ -214,18 +214,18 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:80px 0 40px}
           <div class="form-subtitle">Vul onderstaand formulier in en wij nemen snel contact op.</div>
           <form id="contactForm" action="https://formspree.io/f/xpqyjyeb" method="POST" onsubmit="handleSubmit(event)"> 
             <div class="form-row">
-              <div class="form-group"><label>Voornaam <span class="required">*</span></label><input type="text" placeholder="Jan" required></div>
-              <div class="form-group"><label>Achternaam <span class="required">*</span></label><input type="text" placeholder="de Vries" required></div>
+              <div class="form-group"><label>Voornaam <span class="required">*</span></label><input type="text" name="voornaam" placeholder="Jan" required></div>
+              <div class="form-group"><label>Achternaam <span class="required">*</span></label><input type="text" name="achternaam" placeholder="de Vries" required></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>E-mailadres <span class="required">*</span></label><input type="email" placeholder="jan@bedrijf.nl" required></div>
-              <div class="form-group"><label>Telefoonnummer</label><input type="tel" placeholder="+31 6 12345678"></div>
+              <div class="form-group"><label>E-mailadres <span class="required">*</span></label><input type="email" name="email" placeholder="jan@bedrijf.nl" required></div>
+              <div class="form-group"><label>Telefoonnummer</label><input type="tel" name="telefoon" placeholder="+31 6 12345678"></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>Bedrijfsnaam</label><input type="text" placeholder="Bedrijf B.V."></div>
+              <div class="form-group"><label>Bedrijfsnaam</label><input type="text" name="bedrijf" placeholder="Bedrijf B.V."></div>
               <div class="form-group">
                 <label>Type project <span class="required">*</span></label>
-                <select required>
+                <select name="project_type" required>
                   <option value="" disabled selected>Selecteer...</option>
                   <option>Website</option><option>Webshop</option><option>Dashboard</option>
                   <option>Web Portaal</option>
@@ -235,11 +235,11 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:80px 0 40px}
             </div>    
             <div class="form-group" style="margin-bottom:16px">
               <label>Hoe heb je ons gevonden?</label>
-              <select><option value="" disabled selected>Selecteer...</option><option>Google</option><option>Social media</option><option>Doorverwijzing</option><option>LinkedIn</option><option>Anders</option></select>
+              <select name="gevonden_via"><option value="" disabled selected>Selecteer...</option><option>Google</option><option>Social media</option><option>Doorverwijzing</option><option>LinkedIn</option><option>Anders</option></select>
             </div>
             <div class="form-group" style="margin-bottom:16px">
               <label>Vertel ons over je project</label>
-              <textarea placeholder="Beschrijf kort je idee, doelen, planning en eventuele wensen. Hoe meer detail, hoe beter wij je kunnen adviseren..."></textarea>
+              <textarea name="bericht" placeholder="Beschrijf kort je idee, doelen, planning en eventuele wensen. Hoe meer detail, hoe beter wij je kunnen adviseren..."></textarea>
             </div>
             <button type="submit" class="form-submit">Verstuur aanvraag <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <div class="form-privacy">Door te versturen ga je akkoord met ons <a href="#">privacybeleid</a>. We delen je gegevens nooit met derden.</div>
