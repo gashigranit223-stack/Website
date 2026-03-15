@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ilyrians | Offerte aanvragen</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav id="mainNav" class="scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="8" fill="#1B4DFF"/>
+        <path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/>
+      </svg>
+      <span class="nav-logo-text">Ily<span>rians</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#diensten">Diensten</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#werkwijze">Werkwijze</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="contact.html" class="nav-cta-btn">Offerte aanvragen</a></li>
+    </ul>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#diensten">Diensten</a>
+    <a href="index.html#portfolio">Portfolio</a>
+    <a href="index.html#werkwijze">Werkwijze</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="contact.html" class="mobile-cta">Offerte aanvragen</a>
+  </div>
+</nav>
+
+<!-- ─── CONTACT HERO ─── -->
+<section class="contact-hero">
+  <div class="container">
+    <div class="contact-hero-inner">
+      <div class="tag"><span class="dot"></span> Contact</div>
+      <h1>Laten we samen iets <span class="highlight">bijzonders</span> bouwen</h1>
+      <p class="contact-hero-desc">Vertel ons over je project en wij nemen binnen 24 uur contact op met een plan op maat. Gratis en vrijblijvend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT CONTENT ─── -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: Info + perks -->
+      <div class="contact-info reveal">
+        <div class="contact-perks">
+          <div class="contact-perk">
+            <div class="perk-icon blue">💬</div>
+            <div>
+              <div class="perk-title">Vrijblijvend adviesgesprek</div>
+              <div class="perk-desc">We bespreken je idee, doelen en mogelijkheden — zonder verplichtingen.</div>
+            </div>
+          </div>
+          <div class="contact-perk">
+            <div class="perk-icon green">⚡</div>
+            <div>
+              <div class="perk-title">Reactie binnen 24 uur</div>
+              <div class="perk-desc">Je hoort snel van ons. Geen weken wachten op een antwoord.</div>
+            </div>
+          </div>
+          <div class="contact-perk">
+            <div class="perk-icon orange">📋</div>
+            <div>
+              <div class="perk-title">Transparante offerte</div>
+              <div class="perk-desc">Heldere prijzen, geen verborgen kosten. Je weet precies waar je aan toe bent.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct contact -->
+        <div class="contact-direct">
+          <h3>Liever direct contact?</h3>
+          <div class="contact-direct-items">
+            <a href="mailto:hello@ilyrians.nl" class="contact-direct-item">
+              <div class="cdi-icon">✉</div>
+              <div>
+                <div class="cdi-label">E-mail</div>
+                <div class="cdi-value">hello@ilyrians.nl</div>
+              </div>
+            </a>
+            <a href="tel:+31201234567" class="contact-direct-item">
+              <div class="cdi-icon">📞</div>
+              <div>
+                <div class="cdi-label">Telefoon</div>
+                <div class="cdi-value">+31 20 123 4567</div>
+              </div>
+            </a>
+            <div class="contact-direct-item">
+              <div class="cdi-icon">📍</div>
+              <div>
+                <div class="cdi-label">Kantoor</div>
+                <div class="cdi-value">Amsterdam, Nederland</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-card reveal" id="contactFormCard">
+        <div id="formContent">
+          <div class="form-title">Offerte aanvragen</div>
+          <div class="form-subtitle">Vul onderstaand formulier in en wij nemen snel contact op.</div>
+
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Voornaam <span class="required">*</span></label>
+                <input type="text" placeholder="Jan" required>
+              </div>
+              <div class="form-group">
+                <label>Achternaam <span class="required">*</span></label>
+                <input type="text" placeholder="de Vries" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>E-mailadres <span class="required">*</span></label>
+                <input type="email" placeholder="jan@bedrijf.nl" required>
+              </div>
+              <div class="form-group">
+                <label>Telefoonnummer</label>
+                <input type="tel" placeholder="+31 6 12345678">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Bedrijfsnaam</label>
+                <input type="text" placeholder="Bedrijf B.V.">
+              </div>
+              <div class="form-group">
+                <label>Type project <span class="required">*</span></label>
+                <select required>
+                  <option value="" disabled selected>Selecteer...</option>
+                  <option>Website</option>
+                  <option>Webshop</option>
+                  <option>Dashboard</option>
+                  <option>Web Applicatie</option>
+                  <option>Web Portaal</option>
+                  <option>Redesign bestaande site</option>
+                  <option>Anders</option>
+                </select>
+              </div>
+            </div>
+
+            <label style="font-size:0.8rem;font-weight:600;color:var(--dark-600);margin-bottom:8px;display:block">Indicatie budget</label>
+            <div class="form-budget-options" id="budgetOptions">
+              <div class="budget-option" onclick="selectBudget(this)">€5k – €10k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€10k – €25k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€25k – €50k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€50k – €100k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€100k+</div>
+              <div class="budget-option" onclick="selectBudget(this)">Weet ik nog niet</div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:16px">
+              <label>Hoe heb je ons gevonden?</label>
+              <select>
+                <option value="" disabled selected>Selecteer...</option>
+                <option>Google</option>
+                <option>Social media</option>
+                <option>Doorverwijzing</option>
+                <option>LinkedIn</option>
+                <option>Anders</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom:16px">
+              <label>Vertel ons over je project</label>
+              <textarea placeholder="Beschrijf kort je idee, doelen, planning en eventuele wensen. Hoe meer detail, hoe beter wij je kunnen adviseren..."></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">
+              Verstuur aanvraag
+              <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="form-privacy">Door te versturen ga je akkoord met ons <a href="#" style="color:var(--primary);text-decoration:underline">privacybeleid</a>. We delen je gegevens nooit met derden.</div>
+          </form>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✓</div>
+          <h3>Bedankt voor je aanvraag!</h3>
+          <p>We hebben je bericht ontvangen en nemen binnen 24 uur contact met je op. We kijken ernaar uit om je project te bespreken!</p>
+          <a href="index.html" class="btn-outline" style="margin-top:24px">Terug naar home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="nav-logo" style="margin-bottom:4px">
+          <svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="#1B4DFF"/><path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/></svg>
+          <span class="nav-logo-text" style="color:white">Ily<span>rians</span></span>
+        </a>
+        <p class="footer-brand-desc">Full-service digital agency. Wij ontwerpen en bouwen websites, dashboards en digitale platformen die impact maken.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <a href="#">Websites & Webshops</a>
+        <a href="#">Dashboards & Portalen</a>
+        <a href="#">Web Applicaties</a>
+        <a href="#">UI/UX Design</a>
+        <a href="#">Branding</a>
+      </div>
+      <div class="footer-col">
+        <h4>Bedrijf</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html#werkwijze">Werkwijze</a>
+        <a href="index.html#portfolio">Portfolio</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@ilyrians.nl">hello@ilyrians.nl</a>
+        <a href="tel:+31201234567">+31 20 123 4567</a>
+        <a href="contact.html">Offerte aanvragen</a>
+        <a href="#">Amsterdam, Nederland</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ilyrians. Alle rechten voorbehouden.</span>
+      <div class="footer-socials">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// Budget selector
+function selectBudget(el) {
+  document.querySelectorAll('.budget-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+  window.scrollTo({ top: document.getElementById('contactFormCard').offsetTop - 100, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
