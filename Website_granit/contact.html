@@ -1,1 +1,306 @@
-test
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Ilyrians | Offerte aanvragen</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1B4DFF;
+  --primary-dark: #0A33CC;
+  --primary-light: #E8EEFF;
+  --accent: #00C896;
+  --accent-light: #E5FFF6;
+  --dark: #0F1729;
+  --dark-600: #2A3350;
+  --dark-400: #596380;
+  --dark-300: #8891A5;
+  --dark-200: #BFC5D2;
+  --dark-100: #E4E7ED;
+  --dark-50: #F4F5F7;
+  --white: #FFFFFF;
+  --orange: #FF6B35;
+  --red: #EF4444;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 3px rgba(15,23,41,0.06);
+  --shadow-md: 0 4px 20px rgba(15,23,41,0.08);
+  --shadow-lg: 0 12px 40px rgba(15,23,41,0.1);
+  --shadow-xl: 0 20px 60px rgba(15,23,41,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--primary-light);color:var(--primary);font-size:.8rem;font-weight:600;border-radius:100px}
+.tag .dot{width:6px;height:6px;background:var(--primary);border-radius:50%}
+.highlight{background:linear-gradient(135deg,var(--primary),#6366F1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--dark-100);transition:box-shadow .3s}
+nav.scrolled{box-shadow:var(--shadow-sm)}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;height:72px;max-width:1200px;margin:0 auto;padding:0 24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo svg{width:36px;height:36px}
+.nav-logo-text{font-size:1.35rem;font-weight:800;color:var(--dark);letter-spacing:-.02em}
+.nav-logo-text span{color:var(--primary)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--dark-400);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:var(--primary);color:var(--white)!important;border:none;border-radius:10px;font-family:inherit;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none}
+.nav-cta-btn:hover{background:var(--primary-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(27,77,255,.3)}
+.mobile-menu-btn{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.mobile-menu-btn span{display:block;width:22px;height:2px;background:var(--dark);margin:5px 0;border-radius:2px;transition:.3s}
+.mobile-menu-btn.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.mobile-menu-btn.active span:nth-child(2){opacity:0}
+.mobile-menu-btn.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;flex-direction:column;padding:16px 24px 24px;background:var(--white);border-top:1px solid var(--dark-100)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{padding:14px 0;font-size:1rem;font-weight:500;color:var(--dark-400);text-decoration:none;border-bottom:1px solid var(--dark-50);transition:color .2s}
+.mobile-menu a:hover{color:var(--primary)}
+.mobile-menu .mobile-cta{margin-top:12px;padding:14px 24px;background:var(--primary);color:var(--white);border-radius:var(--radius-sm);text-align:center;font-weight:600;border-bottom:none}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:15px 32px;background:var(--white);color:var(--dark);border:1.5px solid var(--dark-200);border-radius:var(--radius-sm);font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s;text-decoration:none}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+
+/* CONTACT HERO */
+.contact-hero{padding:140px 0 60px;background:linear-gradient(180deg,var(--dark-50) 0%,var(--white) 100%);text-align:center}
+.contact-hero-inner{max-width:640px;margin:0 auto}
+.contact-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:20px 0 16px}
+.contact-hero-desc{font-size:1.1rem;color:var(--dark-400);line-height:1.7}
+
+/* CONTACT SECTION */
+.contact-section{padding:40px 0 100px}
+.contact-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:start}
+.contact-info{padding-top:12px}
+.contact-perks{display:flex;flex-direction:column;gap:24px;margin-bottom:48px}
+.contact-perk{display:flex;align-items:flex-start;gap:14px}
+.perk-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.perk-icon.blue{background:var(--primary-light)}.perk-icon.green{background:var(--accent-light)}.perk-icon.orange{background:#FFF0E8}
+.perk-title{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.perk-desc{font-size:.85rem;color:var(--dark-400);line-height:1.5}
+
+/* DIRECT CONTACT */
+.contact-direct{padding:28px;background:var(--dark-50);border-radius:var(--radius)}
+.contact-direct h3{font-size:1rem;font-weight:700;margin-bottom:20px}
+.contact-direct-items{display:flex;flex-direction:column;gap:16px}
+.contact-direct-item{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;transition:color .2s}
+.contact-direct-item:hover{color:var(--primary)}
+.cdi-icon{width:40px;height:40px;background:var(--white);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:var(--shadow-sm)}
+.cdi-label{font-size:.72rem;color:var(--dark-300);font-weight:500}
+.cdi-value{font-size:.9rem;font-weight:600}
+
+/* FORM CARD */
+.contact-form-card{background:var(--white);border:1px solid var(--dark-100);border-radius:var(--radius);padding:40px;box-shadow:var(--shadow-lg);position:relative}
+.contact-form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),#6366F1,var(--accent));border-radius:var(--radius) var(--radius) 0 0}
+.form-title{font-size:1.2rem;font-weight:700;margin-bottom:4px}
+.form-subtitle{font-size:.85rem;color:var(--dark-300);margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:span 2}
+.form-group label{font-size:.8rem;font-weight:600;color:var(--dark-600)}
+.form-group label .required{color:var(--red)}
+.form-group input,.form-group select,.form-group textarea{padding:12px 16px;border:1.5px solid var(--dark-100);border-radius:var(--radius-xs);font-family:inherit;font-size:.9rem;color:var(--dark);background:var(--white);transition:border-color .2s,box-shadow .2s;outline:none;width:100%}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--dark-200)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(27,77,255,.1)}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23596380' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-budget-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.budget-option{padding:10px 14px;border:1.5px solid var(--dark-100);border-radius:var(--radius-xs);text-align:center;font-size:.8rem;font-weight:600;color:var(--dark-400);cursor:pointer;transition:all .2s;background:var(--white)}
+.budget-option:hover{border-color:var(--primary);color:var(--primary)}
+.budget-option.selected{border-color:var(--primary);background:var(--primary-light);color:var(--primary)}
+.form-submit{width:100%;padding:15px;margin-top:8px;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:10px}
+.form-submit:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(27,77,255,.3)}
+.form-submit svg{width:18px;height:18px}
+.form-privacy{font-size:.72rem;color:var(--dark-300);text-align:center;margin-top:14px;line-height:1.5}
+.form-privacy a{color:var(--primary);text-decoration:underline}
+.form-success{display:none;text-align:center;padding:50px 20px}
+.form-success.show{display:block}
+.form-success-icon{width:72px;height:72px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:2rem}
+.form-success h3{font-size:1.4rem;font-weight:700;margin-bottom:10px}
+.form-success p{font-size:.95rem;color:var(--dark-400);line-height:1.6;max-width:380px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.6);padding:80px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-brand-desc{font-size:.9rem;line-height:1.7;margin-top:20px}
+.footer-col h4{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px}
+.footer-col a{display:block;font-size:.88rem;color:rgba(255,255,255,.55);text-decoration:none;margin-bottom:12px;transition:color .2s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:30px;border-top:1px solid rgba(255,255,255,.08);font-size:.8rem}
+.footer-socials{display:flex;gap:20px}
+.footer-socials a{color:rgba(255,255,255,.35);text-decoration:none;font-size:.8rem;transition:color .2s}
+.footer-socials a:hover{color:var(--white)}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links{display:none}.mobile-menu-btn{display:block}
+  .form-row{grid-template-columns:1fr}.form-group.full{grid-column:span 1}
+  .form-budget-options{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav" class="scrolled">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="#1B4DFF"/><path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/></svg>
+      <span class="nav-logo-text">Ily<span>rians</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#diensten">Diensten</a></li>
+      <li><a href="index.html#portfolio">Portfolio</a></li>
+      <li><a href="index.html#werkwijze">Werkwijze</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="contact.html" class="nav-cta-btn">Offerte aanvragen</a></li>
+    </ul>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#diensten">Diensten</a><a href="index.html#portfolio">Portfolio</a><a href="index.html#werkwijze">Werkwijze</a><a href="index.html#faq">FAQ</a>
+    <a href="contact.html" class="mobile-cta">Offerte aanvragen</a>
+  </div>
+</nav>
+
+<!-- CONTACT HERO -->
+<section class="contact-hero">
+  <div class="container">
+    <div class="contact-hero-inner">
+      <div class="tag"><span class="dot"></span> Contact</div>
+      <h1>Laten we samen iets <span class="highlight">bijzonders</span> bouwen</h1>
+      <p class="contact-hero-desc">Vertel ons over je project en wij nemen binnen 24 uur contact op met een plan op maat. Gratis en vrijblijvend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CONTENT -->
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT -->
+      <div class="contact-info reveal">
+        <div class="contact-perks">
+          <div class="contact-perk"><div class="perk-icon blue">💬</div><div><div class="perk-title">Vrijblijvend adviesgesprek</div><div class="perk-desc">We bespreken je idee, doelen en mogelijkheden — zonder verplichtingen.</div></div></div>
+          <div class="contact-perk"><div class="perk-icon green">⚡</div><div><div class="perk-title">Reactie binnen 24 uur</div><div class="perk-desc">Je hoort snel van ons. Geen weken wachten op een antwoord.</div></div></div>
+          <div class="contact-perk"><div class="perk-icon orange">📋</div><div><div class="perk-title">Transparante offerte</div><div class="perk-desc">Heldere prijzen, geen verborgen kosten. Je weet precies waar je aan toe bent.</div></div></div>
+        </div>
+        <div class="contact-direct">
+          <h3>Liever direct contact?</h3>
+          <div class="contact-direct-items">
+            <a href="mailto:hello@ilyrians.nl" class="contact-direct-item"><div class="cdi-icon">✉</div><div><div class="cdi-label">E-mail</div><div class="cdi-value">hello@ilyrians.nl</div></div></a>
+            <a href="tel:+31201234567" class="contact-direct-item"><div class="cdi-icon">📞</div><div><div class="cdi-label">Telefoon</div><div class="cdi-value">+31 20 123 4567</div></div></a>
+            <div class="contact-direct-item"><div class="cdi-icon">📍</div><div><div class="cdi-label">Kantoor</div><div class="cdi-value">Amsterdam, Nederland</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="contact-form-card reveal" id="contactFormCard">
+        <div id="formContent">
+          <div class="form-title">Offerte aanvragen</div>
+          <div class="form-subtitle">Vul onderstaand formulier in en wij nemen snel contact op.</div>
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group"><label>Voornaam <span class="required">*</span></label><input type="text" placeholder="Jan" required></div>
+              <div class="form-group"><label>Achternaam <span class="required">*</span></label><input type="text" placeholder="de Vries" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>E-mailadres <span class="required">*</span></label><input type="email" placeholder="jan@bedrijf.nl" required></div>
+              <div class="form-group"><label>Telefoonnummer</label><input type="tel" placeholder="+31 6 12345678"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Bedrijfsnaam</label><input type="text" placeholder="Bedrijf B.V."></div>
+              <div class="form-group">
+                <label>Type project <span class="required">*</span></label>
+                <select required>
+                  <option value="" disabled selected>Selecteer...</option>
+                  <option>Website</option><option>Webshop</option><option>Dashboard</option>
+                  <option>Web Applicatie</option><option>Web Portaal</option>
+                  <option>Redesign bestaande site</option><option>Anders</option>
+                </select>
+              </div>
+            </div>
+            <label style="font-size:.8rem;font-weight:600;color:var(--dark-600);margin-bottom:8px;display:block">Indicatie budget</label>
+            <div class="form-budget-options">
+              <div class="budget-option" onclick="selectBudget(this)">€5k – €10k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€10k – €25k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€25k – €50k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€50k – €100k</div>
+              <div class="budget-option" onclick="selectBudget(this)">€100k+</div>
+              <div class="budget-option" onclick="selectBudget(this)">Weet ik nog niet</div>
+            </div>
+            <div class="form-group" style="margin-bottom:16px">
+              <label>Hoe heb je ons gevonden?</label>
+              <select><option value="" disabled selected>Selecteer...</option><option>Google</option><option>Social media</option><option>Doorverwijzing</option><option>LinkedIn</option><option>Anders</option></select>
+            </div>
+            <div class="form-group" style="margin-bottom:16px">
+              <label>Vertel ons over je project</label>
+              <textarea placeholder="Beschrijf kort je idee, doelen, planning en eventuele wensen. Hoe meer detail, hoe beter wij je kunnen adviseren..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Verstuur aanvraag <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="form-privacy">Door te versturen ga je akkoord met ons <a href="#">privacybeleid</a>. We delen je gegevens nooit met derden.</div>
+          </form>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">✓</div>
+          <h3>Bedankt voor je aanvraag!</h3>
+          <p>We hebben je bericht ontvangen en nemen binnen 24 uur contact met je op. We kijken ernaar uit om je project te bespreken!</p>
+          <a href="index.html" class="btn-outline" style="margin-top:24px">Terug naar home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="nav-logo"><svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="#1B4DFF"/><path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/></svg><span class="nav-logo-text" style="color:white">Ily<span>rians</span></span></a>
+        <p class="footer-brand-desc">Full-service digital agency. Wij ontwerpen en bouwen websites, dashboards en digitale platformen die impact maken.</p>
+      </div>
+      <div class="footer-col"><h4>Diensten</h4><a href="index.html#diensten">Websites & Webshops</a><a href="index.html#diensten">Dashboards & Portalen</a><a href="index.html#diensten">Web Applicaties</a><a href="index.html#diensten">UI/UX Design</a></div>
+      <div class="footer-col"><h4>Bedrijf</h4><a href="index.html">Home</a><a href="index.html#werkwijze">Werkwijze</a><a href="index.html#portfolio">Portfolio</a><a href="index.html#faq">FAQ</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:hello@ilyrians.nl">hello@ilyrians.nl</a><a href="tel:+31201234567">+31 20 123 4567</a><a href="contact.html">Offerte aanvragen</a><a href="#">Amsterdam, Nederland</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 Ilyrians. Alle rechten voorbehouden.</span><div class="footer-socials"><a href="#">LinkedIn</a><a href="#">Instagram</a><a href="#">Dribbble</a><a href="#">GitHub</a></div></div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const mb=document.getElementById('mobileMenuBtn'),mm=document.getElementById('mobileMenu');
+mb.addEventListener('click',()=>{mb.classList.toggle('active');mm.classList.toggle('open')});
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mb.classList.remove('active');mm.classList.remove('open')}));
+
+// Reveal
+const obs=new IntersectionObserver(e=>{e.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('visible'),i*60);obs.unobserve(en.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Budget selector
+function selectBudget(el){document.querySelectorAll('.budget-option').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
+
+// Form submit
+function handleSubmit(e){
+  e.preventDefault();
+  document.getElementById('formContent').style.display='none';
+  document.getElementById('formSuccess').classList.add('show');
+  window.scrollTo({top:document.getElementById('contactFormCard').offsetTop-100,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
