@@ -1219,8 +1219,10 @@ document.querySelectorAll('.stats-grid').forEach(el => counterObserver.observe(e
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
     e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
+    const t = document.querySelector(href);
     if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
 });
