@@ -421,6 +421,51 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
   color: var(--dark-400);
 }
 
+/* PORTFOLIO HOVER OVERLAY */
+.portfolio-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 41, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+.portfolio-overlay-text {
+  color: var(--white);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 320px;
+}
+.portfolio-overlay-text strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  color: var(--primary-light);
+}
+.portfolio-overlay-text ul {
+  list-style: none;
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.portfolio-overlay-text ul li {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
+
 /* ─── PROCESS ─── */
 .process-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
@@ -842,6 +887,13 @@ footer {
             <div style="font-size:2.5rem;margin-bottom:12px">📊</div>
             <div style="font-size:.85rem;font-weight:700;color:var(--primary)">Dashboard</div>
           </div>
+          <div class="portfolio-overlay">
+            <div class="portfolio-overlay-text">
+              <strong>Wat wij hebben gedaan</strong>
+              Volledig op maat gebouwd dashboard met real-time data koppelingen, interactieve grafieken en geautomatiseerde rapportages voor het financiële team.
+              <ul><li>UI/UX Design</li><li>Frontend</li><li>API-integratie</li><li>Hosting</li></ul>
+            </div>
+          </div>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-type">Dashboard</div>
@@ -856,6 +908,13 @@ footer {
           <div style="text-align:center">
             <div style="font-size:2.5rem;margin-bottom:12px">🏥</div>
             <div style="font-size:.85rem;font-weight:700;color:var(--accent)">Web Portaal</div>
+          </div>
+          <div class="portfolio-overlay">
+            <div class="portfolio-overlay-text">
+              <strong>Wat wij hebben gedaan</strong>
+              Beveiligd portaal ontworpen en gebouwd waar zorgverleners afspraken beheren, patiëntdossiers inzien en videoconsulten starten — alles in één omgeving.
+              <ul><li>UX Research</li><li>Webdesign</li><li>Development</li><li>Beveiliging</li></ul>
+            </div>
           </div>
         </div>
         <div class="portfolio-info">
@@ -872,6 +931,13 @@ footer {
             <div style="font-size:2.5rem;margin-bottom:12px">🛍️</div>
             <div style="font-size:.85rem;font-weight:700;color:var(--orange)">Webshop</div>
           </div>
+          <div class="portfolio-overlay">
+            <div class="portfolio-overlay-text">
+              <strong>Wat wij hebben gedaan</strong>
+              Complete webshop van concept tot livegang. Custom checkout-flow, geavanceerde productfilters en razendsnel dankzij headless architectuur.
+              <ul><li>Webdesign</li><li>E-commerce</li><li>SEO</li><li>Performance</li></ul>
+            </div>
+          </div>
         </div>
         <div class="portfolio-info">
           <div class="portfolio-type">Webshop</div>
@@ -886,6 +952,13 @@ footer {
           <div style="text-align:center">
             <div style="font-size:2.5rem;margin-bottom:12px">🚛</div>
             <div style="font-size:.85rem;font-weight:700;color:#7C3AED">Web Platform</div>
+          </div>
+          <div class="portfolio-overlay">
+            <div class="portfolio-overlay-text">
+              <strong>Wat wij hebben gedaan</strong>
+              Centraal webplatform gebouwd voor voorraadbeheer, routeplanning en live tracking van zendingen. Gekoppeld aan bestaande systemen van de klant.
+              <ul><li>Strategie</li><li>UI/UX Design</li><li>Development</li><li>Integraties</li></ul>
+            </div>
           </div>
         </div>
         <div class="portfolio-info">
