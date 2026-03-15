@@ -40,28 +40,6 @@ body {
   overflow-x: hidden;
 }
 
-/* TRANSLATE WIDGET */
-#google_translate_element select {
-  padding: 6px 12px;
-  border: 1.5px solid var(--dark-100);
-  border-radius: 8px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--dark-400);
-  background: var(--white);
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s;
-}
-#google_translate_element select:hover {
-  border-color: var(--primary);
-}
-.goog-te-banner-frame { display: none !important; }
-body { top: 0 !important; }
-.goog-te-gadget { font-size: 0 !important; }
-.goog-te-gadget .goog-te-combo { margin: 0 !important; }
-
 /* ─── UTILITY ─── */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .tag {
@@ -1070,7 +1048,6 @@ footer {
       <li><a href="prijzen.html">Prijzen</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="contact.html" class="nav-cta-btn">Offerte aanvragen</a></li>
-      <li><div id="google_translate_element"></div></li>
     </ul>
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1696,16 +1673,5 @@ document.getElementById('popupOverlay').addEventListener('click', function(e) {
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'nl',
-    includedLanguages: 'nl,en,sq,fr,de',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
