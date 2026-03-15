@@ -60,6 +60,162 @@ body {
   border-radius: 50%;
 }
 
+Hier is je nieuwe tijdlijn. Vervang de hele werkwijze sectie hiermee:
+Eerst de CSS — plak dit erbij in je <style> blok:
+css/* TIMELINE */
+.timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--primary-light), var(--primary), var(--primary-light));
+  border-radius: 3px;
+}
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 60px;
+  position: relative;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+.timeline-item:nth-child(odd) {
+  flex-direction: row;
+  padding-right: calc(50% + 40px);
+  text-align: right;
+}
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+  padding-left: calc(50% + 40px);
+  text-align: left;
+}
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary);
+  z-index: 2;
+  transition: all 0.3s;
+  box-shadow: 0 0 0 6px var(--white);
+}
+.timeline-item:hover .timeline-dot {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 0 0 6px var(--white), 0 0 20px rgba(27, 77, 255, 0.3);
+  transform: translateX(-50%) scale(1.1);
+}
+.timeline-card {
+  background: var(--white);
+  border: 1px solid var(--dark-100);
+  border-radius: var(--radius);
+  padding: 28px;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+.timeline-card::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 16px;
+  height: 16px;
+  background: var(--white);
+  border: 1px solid var(--dark-100);
+  transform: rotate(45deg);
+}
+.timeline-item:nth-child(odd) .timeline-card::before {
+  right: -9px;
+  border-left: none;
+  border-bottom: none;
+}
+.timeline-item:nth-child(even) .timeline-card::before {
+  left: -9px;
+  border-right: none;
+  border-top: none;
+}
+.timeline-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.timeline-card-icon {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+.timeline-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.timeline-card p {
+  font-size: 0.88rem;
+  color: var(--dark-400);
+  line-height: 1.65;
+}
+.timeline-card-tag {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 4px 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 100px;
+}
+
+/* TIMELINE RESPONSIVE */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 24px;
+  }
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    flex-direction: row;
+    padding-right: 0;
+    padding-left: 72px;
+    text-align: left;
+  }
+  .timeline-dot {
+    left: 24px;
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+  }
+  .timeline-item:hover .timeline-dot {
+    transform: translateX(-50%) scale(1.1);
+  }
+  .timeline-item:nth-child(odd) .timeline-card::before,
+  .timeline-item:nth-child(even) .timeline-card::before {
+    left: -9px;
+    right: auto;
+    border-right: none;
+    border-top: none;
+    border-left: 1px solid var(--dark-100);
+    border-bottom: 1px solid var(--dark-100);
+  }
+}
+
 /* POPUP */
 .popup-overlay {
   position: fixed;
@@ -1166,7 +1322,7 @@ footer {
   </div>
 </section>
 
-<!-- ─── PROCESS ─── -->
+<!-- ─── WERKWIJZE TIMELINE ─── -->
 <section class="section gray" id="werkwijze">
   <div class="container">
     <div class="section-header reveal">
@@ -1174,27 +1330,49 @@ footer {
       <h2>Hoe wij te werk gaan</h2>
       <p>Een bewezen aanpak die zorgt voor projecten die op tijd, binnen budget en boven verwachting worden opgeleverd.</p>
     </div>
-    <div class="process-grid reveal">
-      <div class="process-step">
-        <div class="step-number">1</div>
-        <h3>Discovery & Strategie</h3>
-        <p>We duiken in jouw merk, doelgroep en doelen. Marktanalyse, concurrentieonderzoek en strategische planning.</p>
+
+    <div class="timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-card">
+          <div class="timeline-card-icon">🔍</div>
+          <h3>Discovery & Strategie</h3>
+          <p>We duiken in jouw merk, doelgroep en doelen. Samen bepalen we de juiste richting met marktanalyse en strategische planning.</p>
+          <span class="timeline-card-tag">Week 1-2</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="step-number">2</div>
-        <h3>Design & Prototype</h3>
-        <p>Wireframes worden interactieve prototypes. Iteratief ontwerpen met jouw feedback centraal in het proces.</p>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-card">
+          <div class="timeline-card-icon">🎨</div>
+          <h3>Design & Prototype</h3>
+          <p>Wireframes worden interactieve prototypes. Iteratief ontwerpen met jouw feedback centraal — tot elk detail klopt.</p>
+          <span class="timeline-card-tag">Week 2-4</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="step-number">3</div>
-        <h3>Development</h3>
-        <p>Agile sprints met wekelijkse demo's. Schone code, uitgebreid getest en geoptimaliseerd voor performance.</p>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-card">
+          <div class="timeline-card-icon">⚡</div>
+          <h3>Development</h3>
+          <p>Schone, performante code in agile sprints. Wekelijkse demo's zodat je altijd ziet wat er gebouwd wordt.</p>
+          <span class="timeline-card-tag">Week 4-8</span>
+        </div>
       </div>
-      <div class="process-step">
-        <div class="step-number">4</div>
-        <h3>Launch & Groei</h3>
-        <p>Zorgvuldige lancering, monitoring en doorlopende optimalisatie. Wij blijven betrokken na livegang.</p>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-card">
+          <div class="timeline-card-icon">🚀</div>
+          <h3>Launch & Groei</h3>
+          <p>Zorgvuldige lancering met monitoring en doorlopende optimalisatie. Wij blijven betrokken om je project te laten groeien.</p>
+          <span class="timeline-card-tag">Doorlopend</span>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
