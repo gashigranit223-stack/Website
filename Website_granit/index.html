@@ -499,8 +499,110 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
   width: 100px; height: 28px; background: var(--dark); border-radius: 0 0 18px 18px; z-index: 5;
 }
 .phone-app {
-  padding: 44px 16px 16px; height: 100%;
+  padding: 0; height: 100%;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+}
+.phone-slides {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  animation: phoneScroll 12s ease-in-out infinite;
+}
+.phone-slide {
+  width: 25%;
+  height: 100%;
+  padding: 44px 16px 60px;
+  flex-shrink: 0;
+}
+.phone-slide:nth-child(1) {
   background: linear-gradient(180deg, var(--primary-light) 0%, var(--white) 40%);
+}
+.phone-slide:nth-child(2) {
+  background: linear-gradient(180deg, var(--accent-light) 0%, var(--white) 40%);
+}
+.phone-slide:nth-child(3) {
+  background: linear-gradient(180deg, #FFF0E8 0%, var(--white) 40%);
+}
+.phone-slide:nth-child(4) {
+  background: linear-gradient(180deg, #F0EAFF 0%, var(--white) 40%);
+}
+@keyframes phoneScroll {
+  0%, 20%   { transform: translateX(0); }
+  25%, 45%  { transform: translateX(-25%); }
+  50%, 70%  { transform: translateX(-50%); }
+  75%, 95%  { transform: translateX(-75%); }
+  100%      { transform: translateX(0); }
+}
+.phone-slide-label {
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  display: inline-block;
+}
+.phone-slide-label.blue { background: var(--primary-light); color: var(--primary); }
+.phone-slide-label.green { background: var(--accent-light); color: var(--accent); }
+.phone-slide-label.orange { background: #FFF0E8; color: var(--orange); }
+.phone-slide-label.purple { background: #F0EAFF; color: #7C3AED; }
+.phone-mini-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 40px;
+  margin-top: 10px;
+}
+.phone-mini-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  animation: barGrow 2s ease-out forwards;
+}
+@keyframes barGrow {
+  from { height: 0; }
+}
+.phone-progress {
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  background: var(--dark-100);
+  overflow: hidden;
+}
+.phone-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  animation: progressFill 3s ease-out infinite;
+}
+@keyframes progressFill {
+  0% { width: 0; }
+  50%, 100% { width: 100%; }
+}
+.phone-dots-indicator {
+  position: absolute;
+  bottom: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+.phone-dots-indicator .pd {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dark-200);
+  animation: dotPulse 12s ease-in-out infinite;
+}
+.phone-dots-indicator .pd:nth-child(1) { animation-delay: 0s; }
+.phone-dots-indicator .pd:nth-child(2) { animation-delay: 3s; }
+.phone-dots-indicator .pd:nth-child(3) { animation-delay: 6s; }
+.phone-dots-indicator .pd:nth-child(4) { animation-delay: 9s; }
+@keyframes dotPulse {
+  0%, 20% { background: var(--primary); width: 16px; border-radius: 3px; }
+  25%, 100% { background: var(--dark-200); width: 6px; border-radius: 50%; }
 }
 .phone-app-header {
   display: flex; justify-content: space-between; align-items: center;
@@ -1103,48 +1205,114 @@ footer {
         </div>
 
         <div class="phone-mockup">
-          <div class="phone-screen">
-            <div class="phone-notch"></div>
-            <div class="phone-app">
-              <div class="phone-app-header">
-                <div class="phone-app-logo">ILYRIANS</div>
-                <div class="phone-app-avatar"></div>
-              </div>
-              <div class="phone-card">
-                <div class="phone-card-title">Dashboard</div>
-                <div class="phone-card-bar fill-1"></div>
-                <div class="phone-card-bar fill-2"></div>
-                <div class="phone-card-bar fill-3"></div>
-              </div>
-              <div class="phone-stats">
-                <div class="phone-stat-box">
-                  <div class="phone-stat-num">12.4k</div>
-                  <div class="phone-stat-label">GEBRUIKERS</div>
-                </div>
-                <div class="phone-stat-box">
-                  <div class="phone-stat-num">98%</div>
-                  <div class="phone-stat-label">UPTIME</div>
-                </div>
-              </div>
-              <div class="phone-stats" style="margin-top:8px">
-                <div class="phone-stat-box">
-                  <div class="phone-stat-num" style="color:var(--accent)">€84k</div>
-                  <div class="phone-stat-label">OMZET</div>
-                </div>
-                <div class="phone-stat-box">
-                  <div class="phone-stat-num" style="color:var(--orange)">4.8</div>
-                  <div class="phone-stat-label">RATING</div>
-                </div>
-              </div>
-            </div>
-            <div class="phone-nav-bar">
-              <div class="phone-nav-dot active"></div>
-              <div class="phone-nav-dot"></div>
-              <div class="phone-nav-dot"></div>
-              <div class="phone-nav-dot"></div>
+  <div class="phone-screen">
+    <div class="phone-notch"></div>
+    <div class="phone-app">
+      <div class="phone-slides">
+
+        <!-- Slide 1: Dashboard -->
+        <div class="phone-slide">
+          <div class="phone-app-header">
+            <div class="phone-app-logo">ILYRIANS</div>
+            <div class="phone-app-avatar"></div>
+          </div>
+          <span class="phone-slide-label blue">Dashboard</span>
+          <div class="phone-card">
+            <div class="phone-card-title">Omzet overzicht</div>
+            <div class="phone-mini-chart">
+              <div class="phone-mini-bar" style="height:40%;background:var(--primary-light)"></div>
+              <div class="phone-mini-bar" style="height:65%;background:var(--primary-light)"></div>
+              <div class="phone-mini-bar" style="height:45%;background:var(--primary-light)"></div>
+              <div class="phone-mini-bar" style="height:80%;background:var(--primary)"></div>
+              <div class="phone-mini-bar" style="height:60%;background:var(--primary-light)"></div>
+              <div class="phone-mini-bar" style="height:90%;background:var(--primary)"></div>
+              <div class="phone-mini-bar" style="height:70%;background:var(--primary-light)"></div>
             </div>
           </div>
+          <div class="phone-stats">
+            <div class="phone-stat-box"><div class="phone-stat-num">€84k</div><div class="phone-stat-label">OMZET</div></div>
+            <div class="phone-stat-box"><div class="phone-stat-num">+24%</div><div class="phone-stat-label">GROEI</div></div>
+          </div>
         </div>
+
+        <!-- Slide 2: Analytics -->
+        <div class="phone-slide">
+          <div class="phone-app-header">
+            <div class="phone-app-logo">ILYRIANS</div>
+            <div class="phone-app-avatar"></div>
+          </div>
+          <span class="phone-slide-label green">Analytics</span>
+          <div class="phone-card">
+            <div class="phone-card-title">Bezoekers deze week</div>
+            <div class="phone-stats" style="margin-top:8px">
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:var(--accent)">12.4k</div><div class="phone-stat-label">BEZOEKERS</div></div>
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:var(--accent)">3.2%</div><div class="phone-stat-label">CONVERSIE</div></div>
+            </div>
+          </div>
+          <div class="phone-card" style="margin-top:8px">
+            <div class="phone-card-title">Paginaweergaven</div>
+            <div class="phone-progress"><div class="phone-progress-fill" style="background:linear-gradient(90deg,var(--accent),#00E6A7)"></div></div>
+            <div class="phone-progress"><div class="phone-progress-fill" style="background:linear-gradient(90deg,var(--accent),#00E6A7);animation-delay:.5s"></div></div>
+          </div>
+        </div>
+
+        <!-- Slide 3: Webshop -->
+        <div class="phone-slide">
+          <div class="phone-app-header">
+            <div class="phone-app-logo">ILYRIANS</div>
+            <div class="phone-app-avatar"></div>
+          </div>
+          <span class="phone-slide-label orange">Webshop</span>
+          <div class="phone-card">
+            <div class="phone-card-title">Bestellingen vandaag</div>
+            <div class="phone-stats" style="margin-top:8px">
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:var(--orange)">47</div><div class="phone-stat-label">ORDERS</div></div>
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:var(--orange)">€2.8k</div><div class="phone-stat-label">OMZET</div></div>
+            </div>
+          </div>
+          <div class="phone-card" style="margin-top:8px">
+            <div class="phone-card-title">Top producten</div>
+            <div class="phone-card-bar fill-1" style="width:90%;background:linear-gradient(90deg,var(--orange),#FF9B6B)"></div>
+            <div class="phone-card-bar fill-2" style="width:65%;background:linear-gradient(90deg,var(--orange),#FF9B6B)"></div>
+            <div class="phone-card-bar fill-3" style="width:40%;background:linear-gradient(90deg,var(--orange),#FF9B6B)"></div>
+          </div>
+        </div>
+
+        <!-- Slide 4: Portaal -->
+        <div class="phone-slide">
+          <div class="phone-app-header">
+            <div class="phone-app-logo">ILYRIANS</div>
+            <div class="phone-app-avatar"></div>
+          </div>
+          <span class="phone-slide-label purple">Portaal</span>
+          <div class="phone-card">
+            <div class="phone-card-title">Projecten actief</div>
+            <div class="phone-stats" style="margin-top:8px">
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:#7C3AED">8</div><div class="phone-stat-label">ACTIEF</div></div>
+              <div class="phone-stat-box"><div class="phone-stat-num" style="color:#7C3AED">98%</div><div class="phone-stat-label">UPTIME</div></div>
+            </div>
+          </div>
+          <div class="phone-card" style="margin-top:8px">
+            <div class="phone-card-title">Voortgang</div>
+            <div class="phone-progress"><div class="phone-progress-fill" style="background:linear-gradient(90deg,#7C3AED,#A78BFA)"></div></div>
+            <div class="phone-progress"><div class="phone-progress-fill" style="background:linear-gradient(90deg,#7C3AED,#A78BFA);animation-delay:.7s"></div></div>
+            <div class="phone-progress"><div class="phone-progress-fill" style="background:linear-gradient(90deg,#7C3AED,#A78BFA);animation-delay:1.2s"></div></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="phone-dots-indicator">
+        <div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div>
+      </div>
+    </div>
+    <div class="phone-nav-bar">
+      <div class="phone-nav-dot active"></div>
+      <div class="phone-nav-dot"></div>
+      <div class="phone-nav-dot"></div>
+      <div class="phone-nav-dot"></div>
+    </div>
+  </div>
+</div>
 
         <div class="floating-card floating-card-2">
           <div class="fc-row">
