@@ -1,809 +1,1485 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Ilyrian — Webontwikkeling & Design</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilyrians — Digital Craftsmanship</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0f0e0c;
-  --ink2:#2e2c28;
-  --ink3:#5a5750;
-  --ink4:#9a9690;
-  --paper:#faf9f6;
-  --paper2:#f2f0eb;
-  --paper3:#e8e5de;
-  --white:#ffffff;
-  --gold:#b8953a;
-  --gold2:#d4ae5a;
-  --gold-bg:rgba(184,149,58,0.07);
-  --gold-border:rgba(184,149,58,0.2);
-  --border:rgba(0,0,0,0.08);
-  --border2:rgba(0,0,0,0.13);
-  --green:#1a9e72;
-  --green-bg:rgba(26,158,114,0.07);
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D5A3;
+  --gold-dark: #8B6914;
+  --bg-primary: #0A0A0F;
+  --bg-secondary: #111118;
+  --bg-card: #16161F;
+  --bg-card-hover: #1C1C28;
+  --text-primary: #F0EDE6;
+  --text-secondary: #8A8A9A;
+  --text-muted: #55556A;
+  --accent: #4A6CF7;
+  --accent-teal: #2DD4BF;
+  --border: rgba(201, 168, 76, 0.12);
+  --border-light: rgba(255,255,255,0.06);
 }
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden}
 
-/* ── CURSOR ── */
-.cursor{width:10px;height:10px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.3s,height 0.3s,opacity 0.3s;mix-blend-mode:multiply}
-.cursor-ring{width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.18s ease,width 0.3s,height 0.3s,opacity 0.3s;opacity:0.5}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 5vw;background:rgba(250,249,246,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.logo{text-decoration:none;display:flex;align-items:center;gap:0.5rem}
-.logo-mark{width:32px;height:32px;position:relative;flex-shrink:0}
-.logo-text{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:0.04em;color:var(--ink)}
-.logo-text span{color:var(--gold)}
-.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
-.nav-links a{color:var(--ink3);font-size:0.85rem;text-decoration:none;font-weight:400;letter-spacing:0.03em;transition:color 0.2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.25s}
-.nav-links a:hover{color:var(--ink)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.nav-cta{background:var(--ink)!important;color:var(--paper)!important;padding:0.55rem 1.4rem;border-radius:3px;font-weight:500;letter-spacing:0.04em;transition:background 0.2s!important}
-.nav-cta::after{display:none!important}
-.nav-cta:hover{background:var(--ink2)!important;color:var(--paper)!important}
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dark) var(--bg-primary);
+}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 5vw 4rem;gap:4rem;position:relative;overflow:hidden}
-.hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-left{position:relative;z-index:1}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:0.55rem;margin-bottom:2rem;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3)}
-.hero-eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,5.5vw,5.8rem);font-weight:300;line-height:1.02;letter-spacing:-0.01em;margin-bottom:0.5rem}
-.hero h1 strong{font-weight:600;display:block}
-.hero h1 em{font-style:italic;color:var(--gold);font-weight:300}
-.hero-sub{font-size:1.05rem;color:var(--ink3);max-width:440px;line-height:1.8;margin:1.8rem 0 2.8rem;font-weight:300}
-.hero-actions{display:flex;gap:0.9rem;flex-wrap:wrap;align-items:center}
-.btn-ink{display:inline-flex;align-items:center;gap:0.6rem;background:var(--ink);color:var(--paper);text-decoration:none;padding:0.95rem 2.2rem;font-size:0.88rem;font-weight:500;letter-spacing:0.04em;border-radius:3px;transition:transform 0.2s,box-shadow 0.2s}
-.btn-ink:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(15,14,12,0.18)}
-.btn-line{display:inline-flex;align-items:center;gap:0.6rem;color:var(--ink3);text-decoration:none;padding:0.95rem 0;font-size:0.88rem;font-weight:400;border-bottom:1px solid var(--border2);letter-spacing:0.03em;transition:color 0.2s,border-color 0.2s}
-.btn-line:hover{color:var(--ink);border-color:var(--ink)}
-.hero-right{position:relative;z-index:1;display:flex;flex-direction:column;gap:1rem}
-.hero-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.6rem;position:relative;overflow:hidden}
-.hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)}
-.hero-card-label{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:0.5rem}
-.hero-card-val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;letter-spacing:-0.02em;line-height:1}
-.hero-card-note{font-size:0.8rem;color:var(--ink3);margin-top:0.25rem;font-weight:300}
-.hero-cards-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.hero-process{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.4rem 1.6rem}
-.hero-process-title{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:1rem}
-.process-steps{display:flex;flex-direction:column;gap:0.6rem}
-.ps{display:flex;align-items:center;gap:0.8rem}
-.ps-num{width:24px;height:24px;border-radius:50%;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold);font-size:0.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:500}
-.ps-bar-wrap{flex:1;height:4px;background:var(--paper3);border-radius:2px;overflow:hidden}
-.ps-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.ps-label{font-size:0.78rem;color:var(--ink3);min-width:70px;text-align:right;font-weight:300}
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* ── SECTION BASE ── */
-section{padding:7rem 5vw}
-.eyebrow{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.7rem}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.4rem);font-weight:300;letter-spacing:-0.02em;line-height:1.1;margin-bottom:1rem}
-h2 em{font-style:italic;font-weight:300}
-h2 strong{font-weight:600}
-.lead{color:var(--ink3);font-size:1rem;max-width:500px;line-height:1.85;font-weight:300}
-.section-divider{height:1px;background:var(--border);margin:0 5vw}
+/* ═══════ CURSOR GLOW ═══════ */
+.cursor-glow {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease, top 0.3s ease;
+}
 
-/* ── DIENSTEN ── */
-#diensten{background:var(--white)}
-.diensten-layout{display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:start;margin-top:4rem}
-.diensten-sticky{position:sticky;top:7rem}
-.diensten-viz{margin-top:2rem}
-.svc-list{display:flex;flex-direction:column;gap:0}
-.svc-item{border-top:1px solid var(--border);padding:2rem 0;display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:start;transition:background 0.2s;cursor:default}
-.svc-item:last-child{border-bottom:1px solid var(--border)}
-.svc-num{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--ink4);padding-top:0.2rem;min-width:28px}
-.svc-content h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;margin-bottom:0.5rem;letter-spacing:-0.01em}
-.svc-content p{color:var(--ink3);font-size:0.88rem;font-weight:300;line-height:1.7;max-width:420px}
-.svc-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.8rem}
-.tag{background:var(--paper2);border:1px solid var(--border);color:var(--ink3);font-size:0.72rem;padding:0.2rem 0.65rem;border-radius:3px;letter-spacing:0.03em}
-.svc-arrow{color:var(--ink4);font-size:1.1rem;padding-top:0.15rem;transition:transform 0.2s,color 0.2s}
-.svc-item:hover .svc-arrow{transform:translate(3px,-3px);color:var(--gold)}
+/* ═══════ GEOMETRIC PATTERN ═══════ */
+.geo-pattern {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(30deg, var(--gold) 1px, transparent 1px),
+    linear-gradient(150deg, var(--gold) 1px, transparent 1px);
+  background-size: 60px 100px;
+}
 
-/* ── OVER MIJ ── */
-#over{background:var(--paper)}
-.over-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.over-viz{position:relative}
-.over-portrait{background:var(--white);border:1px solid var(--border);border-radius:4px;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
-.portrait-canvas{width:100%;height:100%}
-.over-badge{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);background:var(--white);border:1px solid var(--border);border-radius:3px;padding:0.9rem 1.3rem;display:flex;align-items:center;gap:0.75rem;white-space:nowrap;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
-.badge-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--green-bg)}
-.badge-text span{display:block;font-size:0.7rem;color:var(--ink4);letter-spacing:0.05em}
-.badge-text strong{font-size:0.88rem;font-weight:500}
-.over-floats{position:absolute;top:1.5rem;right:-1.5rem;display:flex;flex-direction:column;gap:0.8rem}
-.over-float{background:var(--white);border:1px solid var(--border);border-radius:3px;padding:0.7rem 1rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);text-align:center}
-.float-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;display:block;letter-spacing:-0.02em}
-.float-lbl{font-size:0.68rem;color:var(--ink4);letter-spacing:0.06em;text-transform:uppercase}
-.over-copy p{color:var(--ink3);font-size:0.95rem;font-weight:300;line-height:1.85;margin-bottom:1rem}
-.skills-wrap{margin-top:2rem}
-.skills-label{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:1rem}
-.skill-bars{display:flex;flex-direction:column;gap:0.7rem}
-.sb{display:grid;grid-template-columns:110px 1fr 35px;align-items:center;gap:0.8rem}
-.sb-name{font-size:0.82rem;color:var(--ink3);font-weight:300}
-.sb-track{height:3px;background:var(--paper3);border-radius:2px;overflow:hidden}
-.sb-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(0.16,1,0.3,1)}
-.sb-fill.animate{transform:scaleX(1)}
-.sb-pct{font-size:0.75rem;color:var(--ink4);text-align:right}
+/* ═══════ NAVIGATION ═══════ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(0px);
+}
 
-/* ── PORTFOLIO ── */
-#portfolio{background:var(--white)}
-.port-intro{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;margin-bottom:4rem}
-.port-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
-.pj{background:var(--paper);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:box-shadow 0.3s,transform 0.3s}
-.pj:hover{box-shadow:0 16px 50px rgba(0,0,0,0.09);transform:translateY(-4px)}
-.pj-lg{grid-column:span 7}
-.pj-sm{grid-column:span 5}
-.pj-md{grid-column:span 4}
-.pj-mid{grid-column:span 6}
-.pj-thumb{position:relative;overflow:hidden}
-.pj-thumb canvas,.pj-thumb svg{display:block;width:100%}
-.pj-body{padding:1.3rem 1.5rem}
-.pj-cat{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:0.35rem}
-.pj-body h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:0.35rem;letter-spacing:-0.01em}
-.pj-body p{color:var(--ink3);font-size:0.82rem;font-weight:300;line-height:1.6}
+nav.scrolled {
+  padding: 14px 60px;
+  background: rgba(10,10,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
 
-/* ── TARIEVEN ── */
-#tarieven{background:var(--paper)}
-.price-wrap{margin-top:4rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:start}
-.pc{background:var(--white);border:1.5px solid var(--border);border-radius:4px;padding:2.4rem;position:relative;overflow:hidden}
-.pc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--border)}
-.pc.pop{border-color:var(--ink);background:var(--ink)}
-.pc.pop::after{background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.pop-label{position:absolute;top:1.5rem;right:1.5rem;background:var(--gold-bg);border:1px solid var(--gold-border);color:var(--gold);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.75rem;border-radius:2px;font-weight:500}
-.pc-tier{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:1.4rem;font-weight:500}
-.pc.pop .pc-tier{color:rgba(255,255,255,0.4)}
-.pc-amount{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:600;letter-spacing:-0.03em;line-height:1;margin-bottom:0.4rem}
-.pc.pop .pc-amount{color:#fff}
-.pc-tagline{color:var(--ink3);font-size:0.85rem;margin-bottom:2.2rem;font-weight:300;line-height:1.6}
-.pc.pop .pc-tagline{color:rgba(255,255,255,0.45)}
-.pc-divider{height:1px;background:var(--border);margin-bottom:1.4rem}
-.pc.pop .pc-divider{background:rgba(255,255,255,0.1)}
-.pc-features{list-style:none;display:flex;flex-direction:column;gap:0.1rem;margin-bottom:2rem}
-.pc-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.86rem;color:var(--ink3);padding:0.45rem 0;border-bottom:1px solid var(--border);font-weight:300}
-.pc.pop .pc-features li{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.07)}
-.pc-features li::before{content:'↗';color:var(--gold);font-size:0.75rem;flex-shrink:0;margin-top:0.15rem}
-.pc.pop .pc-features li::before{color:var(--gold2)}
-.pc-btn{display:block;text-align:center;text-decoration:none;padding:0.95rem;border-radius:3px;font-size:0.86rem;font-weight:500;letter-spacing:0.04em;transition:all 0.2s}
-.pc-outline{border:1.5px solid var(--border2);color:var(--ink)}
-.pc-outline:hover{border-color:var(--ink);background:var(--paper)}
-.pc-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff}
-.pc-gold:hover{opacity:0.9;transform:translateY(-1px)}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
 
-/* ── PROCES VISUALISATIE ── */
-#proces{background:var(--white);padding:7rem 5vw}
-.proces-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-top:4rem}
-.proces-steps{display:flex;flex-direction:column;gap:0}
-.step{display:grid;grid-template-columns:48px 1fr;gap:1.4rem;padding:1.8rem 0;border-bottom:1px solid var(--border);position:relative}
-.step:first-child{border-top:1px solid var(--border)}
-.step-num{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--ink3);flex-shrink:0;transition:border-color 0.3s,background 0.3s,color 0.3s}
-.step:hover .step-num{border-color:var(--gold);background:var(--gold-bg);color:var(--gold)}
-.step-content h3{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:0.35rem}
-.step-content p{color:var(--ink3);font-size:0.86rem;font-weight:300;line-height:1.7}
-.step-days{font-size:0.72rem;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;margin-top:0.4rem;font-weight:500}
+.logo-icon {
+  width: 42px;
+  height: 42px;
+  position: relative;
+}
 
-/* ── CONTACT ── */
-#contact{background:var(--paper)}
-.contact-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:6rem;align-items:start}
-.contact-left p{color:var(--ink3);font-weight:300;margin:1.2rem 0 2.5rem;line-height:1.85;font-size:0.97rem}
-.c-detail{display:flex;align-items:center;gap:0.8rem;padding:0.9rem 0;border-bottom:1px solid var(--border)}
-.c-icon{width:36px;height:36px;background:var(--paper2);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.c-info span{display:block;font-size:0.7rem;color:var(--ink4);letter-spacing:0.05em;text-transform:uppercase}
-.c-info strong{font-size:0.88rem;font-weight:400}
-.cform{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:2.4rem;display:flex;flex-direction:column;gap:1.1rem;position:relative;overflow:hidden}
-.cform::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2),transparent)}
-.fg{display:flex;flex-direction:column;gap:0.4rem}
-.fg label{font-size:0.72rem;color:var(--ink3);letter-spacing:0.06em;text-transform:uppercase;font-weight:500}
-.fg input,.fg textarea,.fg select{background:var(--paper);border:1px solid var(--border2);color:var(--ink);padding:0.85rem 1rem;border-radius:3px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;transition:border-color 0.2s,background 0.2s;outline:none;width:100%;-webkit-appearance:none}
-.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);background:var(--white)}
-.fg textarea{resize:vertical;min-height:115px}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.csub{background:var(--ink);color:var(--paper);border:none;padding:1rem 2.2rem;border-radius:3px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;letter-spacing:0.05em;transition:transform 0.2s,box-shadow 0.2s;width:100%;margin-top:0.3rem}
-.csub:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(15,14,12,0.18)}
+.logo-icon svg {
+  width: 100%;
+  height: 100%;
+}
 
-/* ── FOOTER ── */
-footer{background:var(--ink);padding:3rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
-.f-logo{text-decoration:none;display:flex;align-items:center;gap:0.4rem}
-.f-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;letter-spacing:0.04em;color:rgba(250,249,246,0.9)}
-.f-logo-text span{color:var(--gold)}
-footer p{color:rgba(250,249,246,0.25);font-size:0.78rem}
-.f-links{display:flex;gap:2rem}
-.f-links a{color:rgba(250,249,246,0.3);font-size:0.8rem;text-decoration:none;letter-spacing:0.03em;transition:color 0.2s}
-.f-links a:hover{color:rgba(250,249,246,0.75)}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
 
-/* ── FADE ANIMATIONS ── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
+.logo-text span {
+  color: var(--gold);
+}
 
-/* ── RESPONSIVE ── */
-@media(max-width:1000px){
-  .hero{grid-template-columns:1fr;padding:7rem 5vw 4rem}
-  .hero-right{display:none}
-  .diensten-layout{grid-template-columns:1fr}
-  .over-grid,.proces-grid,.contact-wrap{grid-template-columns:1fr;gap:3.5rem}
-  .over-floats{right:0;top:-1rem;flex-direction:row}
-  .price-wrap{grid-template-columns:1fr}
-  .pj-lg,.pj-sm,.pj-md,.pj-mid{grid-column:span 12}
-  .frow{grid-template-columns:1fr}
-  .nav-links{display:none}
-  .port-grid{grid-template-columns:1fr 1fr}
-  .pj-lg,.pj-sm{grid-column:span 1}
-  .pj-md{grid-column:span 1}
-  .pj-mid{grid-column:span 1}
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 10px 28px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold) !important;
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 1.5px !important;
+}
+
+.nav-cta:hover {
+  background: var(--gold) !important;
+  color: var(--bg-primary) !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+/* ═══════ HERO ═══════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 60px;
+  overflow: hidden;
+}
+
+.hero-bg-lines {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.hero-bg-lines .line {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+.hero-bg-lines .line:nth-child(1) { left: 20%; }
+.hero-bg-lines .line:nth-child(2) { left: 40%; }
+.hero-bg-lines .line:nth-child(3) { left: 60%; }
+.hero-bg-lines .line:nth-child(4) { left: 80%; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+  animation: fadeSlideUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 30px;
+  animation: fadeSlideUp 0.8s ease 0.15s forwards;
+  opacity: 0;
+}
+
+.hero h1 .italic {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+.hero h1 .outline {
+  -webkit-text-stroke: 1.5px var(--text-primary);
+  color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 560px;
+  margin-bottom: 50px;
+  animation: fadeSlideUp 0.8s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  animation: fadeSlideUp 0.8s ease 0.45s forwards;
+  opacity: 0;
+}
+
+.btn-primary {
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--bg-primary);
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(201,168,76,0.25);
+}
+
+.btn-secondary {
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.hero-visual {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 550px;
+  height: 550px;
+  opacity: 0.6;
+}
+
+.hero-shield {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: rotateFloat 30s linear infinite;
+}
+
+.hero-shield svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══════ STATS BAR ═══════ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  padding: 50px 60px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ═══════ SECTION HEADERS ═══════ */
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-tag::before,
+.section-tag::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 1px;
+  background: var(--border);
+}
+
+.section-tag::before { right: calc(100% + 16px); }
+.section-tag::after { left: calc(100% + 16px); }
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ═══════ SERVICES ═══════ */
+.services {
+  padding: 140px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  padding: 55px 45px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover {
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+  transition: all 0.4s;
+}
+
+.service-card:hover .service-icon {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+}
+
+.service-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.service-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.service-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-tags span {
+  padding: 4px 14px;
+  border: 1px solid var(--border-light);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+
+.service-card:hover .service-tags span {
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+/* ═══════ PROJECTS ═══════ */
+.projects {
+  padding: 140px 60px;
+  position: relative;
+  z-index: 2;
+  background: var(--bg-secondary);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  group: true;
+  aspect-ratio: 16/10;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  transition: all 0.5s;
+}
+
+.project-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.project-preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-mockup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mockup-browser {
+  width: 85%;
+  height: 80%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-primary);
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .mockup-browser {
+  transform: scale(1.02);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.browser-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.browser-dot:first-child { background: #FF5F57; }
+.browser-dot:nth-child(2) { background: #FEBC2E; }
+.browser-dot:nth-child(3) { background: #28C840; }
+
+.browser-url {
+  margin-left: 12px;
+  padding: 4px 16px;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.browser-content {
+  padding: 20px;
+  height: calc(100% - 38px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mock-line {
+  height: 8px;
+  background: var(--border-light);
+  border-radius: 4px;
+}
+
+.mock-line.short { width: 40%; }
+.mock-line.medium { width: 65%; }
+.mock-line.long { width: 85%; }
+.mock-line.gold { background: rgba(201,168,76,0.15); }
+.mock-line.accent { background: rgba(74,108,247,0.15); }
+
+.mock-blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 8px;
+  flex: 1;
+}
+
+.mock-block {
+  background: var(--border-light);
+  border-radius: 6px;
+}
+
+.mock-block.featured {
+  grid-column: span 2;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid var(--border);
+}
+
+.project-info {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding: 30px;
+  background: linear-gradient(transparent, rgba(10,10,15,0.95));
+}
+
+.project-type {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.project-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.project-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* ═══════ PROCESS ═══════ */
+.process {
+  padding: 140px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.process-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.process-timeline::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), var(--gold), var(--border));
+}
+
+.process-step {
+  text-align: center;
+  padding: 0 30px;
+  position: relative;
+}
+
+.step-dot {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  position: relative;
+  background: var(--bg-primary);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.process-step h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+}
+
+.process-step p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ═══════ TECH STACK ═══════ */
+.tech {
+  padding: 100px 60px;
+  background: var(--bg-secondary);
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.tech-label {
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 50px;
+}
+
+.tech-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+  cursor: default;
+}
+
+.tech-item:hover { opacity: 1; }
+
+.tech-item .icon {
+  font-size: 2rem;
+  filter: grayscale(1);
+  transition: filter 0.3s;
+}
+
+.tech-item:hover .icon { filter: none; }
+
+.tech-item span {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ═══════ TESTIMONIAL ═══════ */
+.testimonial {
+  padding: 140px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.testimonial-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonial-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6rem;
+  color: var(--gold);
+  opacity: 0.2;
+  font-style: normal;
+  line-height: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.testimonial-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.testimonial-role {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ═══════ CTA ═══════ */
+.cta {
+  padding: 160px 60px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 50px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* ═══════ FOOTER ═══════ */
+footer {
+  padding: 80px 60px 40px;
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-brand p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-top: 20px;
+  max-width: 320px;
+}
+
+.footer-col h4 {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.footer-col a {
+  display: block;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+  transition: color 0.3s;
+}
+
+.footer-col a:hover { color: var(--gold); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-light);
+}
+
+.footer-bottom span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-socials a:hover { color: var(--gold); }
+
+/* ═══════ ANIMATIONS ═══════ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+@keyframes rotateFloat {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════ COUNTER ANIMATION ═══════ */
+.counter { display: inline-block; }
+
+/* ═══════ RESPONSIVE ═══════ */
+@media (max-width: 1024px) {
+  nav { padding: 16px 30px; }
+  .hero { padding: 0 30px; }
+  .hero-visual { display: none; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .process-timeline { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .process-timeline::before { display: none; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2.5rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .process-timeline { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .services, .projects, .process, .cta, .testimonial { padding: 80px 24px; }
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="ring"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="geo-pattern"></div>
 
-<!-- NAV -->
-<nav>
+<!-- ═══════ NAV ═══════ -->
+<nav id="mainNav">
   <a href="#" class="logo">
-    <!-- SVG logo mark -->
-    <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="16,2 28,9 28,23 16,30 4,23 4,9" stroke="#b8953a" stroke-width="1.5" fill="none"/>
-      <polygon points="16,7 23,11.5 23,20.5 16,25 9,20.5 9,11.5" fill="#b8953a" opacity="0.12"/>
-      <text x="16" y="20" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" font-weight="600" fill="#b8953a" letter-spacing="0.5">I</text>
-    </svg>
-    <span class="logo-text">Ilyrian<span>.</span></span>
+    <div class="logo-icon">
+      <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="21,2 38,12 38,30 21,40 4,30 4,12" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <polygon points="21,8 32,14.5 32,27.5 21,34 10,27.5 10,14.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)"/>
+        <line x1="21" y1="2" x2="21" y2="40" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
+        <line x1="4" y1="12" x2="38" y2="30" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
+        <line x1="38" y1="12" x2="4" y2="30" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="logo-text">ILYR<span>I</span>ANS</div>
   </a>
   <ul class="nav-links">
     <li><a href="#diensten">Diensten</a></li>
-    <li><a href="#over">Over mij</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#tarieven">Tarieven</a></li>
+    <li><a href="#projecten">Projecten</a></li>
+    <li><a href="#werkwijze">Werkwijze</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- ═══════ HERO ═══════ -->
 <section class="hero">
-  <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="hero-left">
-    <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Gevestigd in Naarden &nbsp;·&nbsp; Beschikbaar</div>
+  <div class="hero-bg-lines">
+    <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Digital Studio — Amsterdam
+    </div>
     <h1>
-      Ik bouw het web<br/>
-      <strong>dat voor jou</strong><br/>
-      <em>werkt.</em>
+      Wij bouwen<br>
+      <span class="italic">digitale</span> <span class="outline">ervaringen</span><br>
+      die beklijven
     </h1>
-    <p class="hero-sub">Websites, dashboards en webapplicaties die niet alleen mooi ogen — maar die klanten binnenhalen, processen versnellen en jouw merk laten groeien. Meer dan 5 jaar vakmanschap.</p>
+    <p class="hero-desc">
+      Ilyrians is een digitaal bureau dat merken transformeert met op maat gemaakte websites, dashboards en web-applicaties. Strategisch denken, vakkundig bouwen.
+    </p>
     <div class="hero-actions">
-      <a href="#portfolio" class="btn-ink">Bekijk mijn werk →</a>
-      <a href="#contact" class="btn-line">Gesprek inplannen</a>
+      <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start een project</button>
+      <a href="#projecten" class="btn-secondary">Bekijk ons werk</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-cards-row">
-      <div class="hero-card">
-        <div class="hero-card-label">Ervaring</div>
-        <div class="hero-card-val" id="expCounter">0</div>
-        <div class="hero-card-note">jaar vakmanschap</div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-card-label">Projecten</div>
-        <div class="hero-card-val" id="projCounter">0</div>
-        <div class="hero-card-note">afgerond</div>
+
+  <div class="hero-visual">
+    <div class="hero-shield">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="250" cy="250" r="200" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
+        <circle cx="250" cy="250" r="160" stroke="#C9A84C" stroke-width="0.3" opacity="0.2"/>
+        <circle cx="250" cy="250" r="120" stroke="#C9A84C" stroke-width="0.3" opacity="0.15"/>
+        <polygon points="250,60 430,155 430,345 250,440 70,345 70,155" stroke="#C9A84C" stroke-width="0.6" opacity="0.2"/>
+        <polygon points="250,100 390,175 390,325 250,400 110,325 110,175" stroke="#C9A84C" stroke-width="0.4" opacity="0.15"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ STATS ═══════ -->
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="150">0</span>+</div>
+    <div class="stat-label">Projecten Opgeleverd</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="98">0</span>%</div>
+    <div class="stat-label">Klanttevredenheid</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="12">0</span></div>
+    <div class="stat-label">Specialisten</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="8">0</span>+</div>
+    <div class="stat-label">Jaar Ervaring</div>
+  </div>
+</div>
+
+<!-- ═══════ SERVICES ═══════ -->
+<section class="services" id="diensten">
+  <div class="section-header reveal">
+    <div class="section-tag">Wat wij doen</div>
+    <h2 class="section-title">Digitale oplossingen<br>op het <em style="font-family:'Playfair Display';color:var(--gold)">hoogste niveau</em></h2>
+    <p class="section-subtitle">Van concept tot livegang — wij leveren maatwerk digitale producten die jouw merk laten groeien.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">⬡</div>
+      <div class="service-num">01</div>
+      <h3>Websites & Webshops</h3>
+      <p>Custom websites die converteren. Van corporate sites tot complete e-commerce platformen, gebouwd op performance en design.</p>
+      <div class="service-tags">
+        <span>Next.js</span><span>WordPress</span><span>Shopify</span><span>Headless CMS</span>
       </div>
     </div>
-    <div class="hero-process">
-      <div class="hero-process-title">Hoe ik werk</div>
-      <div class="process-steps">
-        <div class="ps"><span class="ps-num">1</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:100%"></div></div><span class="ps-label">Intake & plan</span></div>
-        <div class="ps"><span class="ps-num">2</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:80%"></div></div><span class="ps-label">Ontwerp</span></div>
-        <div class="ps"><span class="ps-num">3</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:90%"></div></div><span class="ps-label">Ontwikkeling</span></div>
-        <div class="ps"><span class="ps-num">4</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:75%"></div></div><span class="ps-label">Lancering</span></div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">◈</div>
+      <div class="service-num">02</div>
+      <h3>Dashboards & Apps</h3>
+      <p>Interactieve dashboards en web-applicaties die data omzetten in inzicht. Real-time, schaalbaar en intuïtief.</p>
+      <div class="service-tags">
+        <span>React</span><span>Vue.js</span><span>D3.js</span><span>API's</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">△</div>
+      <div class="service-num">03</div>
+      <h3>UI/UX Design</h3>
+      <p>Onderzoeksgedreven design dat gebruikers begrijpt. Wireframes, prototypes en design systems die schalen.</p>
+      <div class="service-tags">
+        <span>Figma</span><span>Prototyping</span><span>User Research</span><span>Design Systems</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">◎</div>
+      <div class="service-num">04</div>
+      <h3>Branding & Identiteit</h3>
+      <p>Visuele identiteiten die blijven hangen. Logo's, huisstijlen en merkstrategieën die jouw verhaal vertellen.</p>
+      <div class="service-tags">
+        <span>Logo Design</span><span>Huisstijl</span><span>Strategie</span><span>Guidelines</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">⬢</div>
+      <div class="service-num">05</div>
+      <h3>SaaS Development</h3>
+      <p>Volledige SaaS-platformen van architectuur tot deployment. Veilig, schaalbaar en gebouwd voor groei.</p>
+      <div class="service-tags">
+        <span>Node.js</span><span>PostgreSQL</span><span>AWS</span><span>Docker</span>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-icon">◇</div>
+      <div class="service-num">06</div>
+      <h3>SEO & Performance</h3>
+      <p>Technische optimalisatie die resultaat levert. Snellere laadtijden, hogere rankings en meer organisch verkeer.</p>
+      <div class="service-tags">
+        <span>Core Web Vitals</span><span>SEO Audit</span><span>Analytics</span><span>A/B Testing</span>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<!-- ═══════ PROJECTS ═══════ -->
+<section class="projects" id="projecten">
+  <div class="section-header reveal">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Geselecteerd werk</h2>
+    <p class="section-subtitle">Een selectie van recente projecten waar we trots op zijn.</p>
+  </div>
 
-<!-- DIENSTEN -->
-<section id="diensten">
-  <div class="diensten-layout">
-    <div class="diensten-sticky">
-      <div class="eyebrow">Expertise</div>
-      <h2>Wat ik<br/><em>voor je</em><br/><strong>bouw</strong></h2>
-      <p class="lead" style="margin-top:1rem">Van eerste schets tot gelanceerd product — ik begeleid je door elk stadium.</p>
-      <!-- Radial skill chart -->
-      <div class="diensten-viz">
-        <canvas id="radarChart" width="240" height="240"></canvas>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-preview">
+        <div class="project-mockup">
+          <div class="mockup-browser">
+            <div class="browser-bar">
+              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+              <div class="browser-url">aethon-finance.nl</div>
+            </div>
+            <div class="browser-content">
+              <div class="mock-line short gold"></div>
+              <div class="mock-line long"></div>
+              <div class="mock-line medium"></div>
+              <div class="mock-blocks">
+                <div class="mock-block featured"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-type">Dashboard — Fintech</div>
+        <div class="project-name">Aethon Finance</div>
+        <div class="project-desc">Real-time trading dashboard met portfolio analytics</div>
       </div>
     </div>
-    <div class="svc-list">
-      <div class="svc-item reveal">
-        <span class="svc-num">01</span>
-        <div class="svc-content">
-          <h3>Websites & Landingspagina's</h3>
-          <p>Op maat gebouwde websites zonder templates. Snel, responsief en geoptimaliseerd voor conversie en zoekmachines. Jouw online etalage verdient de beste versie van zichzelf.</p>
-          <div class="svc-tags"><span class="tag">HTML/CSS</span><span class="tag">Next.js</span><span class="tag">SEO</span><span class="tag">CMS</span></div>
+
+    <div class="project-card reveal">
+      <div class="project-preview">
+        <div class="project-mockup">
+          <div class="mockup-browser">
+            <div class="browser-bar">
+              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+              <div class="browser-url">velora-fashion.com</div>
+            </div>
+            <div class="browser-content">
+              <div class="mock-line medium accent"></div>
+              <div class="mock-line short"></div>
+              <div class="mock-blocks">
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block featured"></div>
+                <div class="mock-block"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <span class="svc-arrow">↗</span>
       </div>
-      <div class="svc-item reveal">
-        <span class="svc-num">02</span>
-        <div class="svc-content">
-          <h3>Dashboards & Webapplicaties</h3>
-          <p>Complexe interfaces met real-time data, gebruikersrollen en grafieken. Ik bouw tools die je team dagelijks wil gebruiken — inzichtelijk, snel en schaalbaar.</p>
-          <div class="svc-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">Charts</span><span class="tag">API</span></div>
-        </div>
-        <span class="svc-arrow">↗</span>
+      <div class="project-info">
+        <div class="project-type">Webshop — Fashion</div>
+        <div class="project-name">Velora Fashion</div>
+        <div class="project-desc">Headless e-commerce platform met 200% meer conversie</div>
       </div>
-      <div class="svc-item reveal">
-        <span class="svc-num">03</span>
-        <div class="svc-content">
-          <h3>Webshops & E-commerce</h3>
-          <p>Custom webshops die echt verkopen. Van productpagina's tot checkout — alles geoptimaliseerd voor maximale omzet en een soepele klantbeleving.</p>
-          <div class="svc-tags"><span class="tag">Shopify</span><span class="tag">WooCommerce</span><span class="tag">Mollie</span></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-preview">
+        <div class="project-mockup">
+          <div class="mockup-browser">
+            <div class="browser-bar">
+              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+              <div class="browser-url">nexgen-health.io</div>
+            </div>
+            <div class="browser-content">
+              <div class="mock-line long gold"></div>
+              <div class="mock-line medium"></div>
+              <div class="mock-line short"></div>
+              <div class="mock-blocks">
+                <div class="mock-block"></div>
+                <div class="mock-block featured"></div>
+                <div class="mock-block"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <span class="svc-arrow">↗</span>
       </div>
-      <div class="svc-item reveal">
-        <span class="svc-num">04</span>
-        <div class="svc-content">
-          <h3>API-koppelingen & Integraties</h3>
-          <p>Jouw tools, CRM of boekingssysteem naadloos koppelen aan je website of platform. Geen losse eilanden meer — alles werkt samen.</p>
-          <div class="svc-tags"><span class="tag">REST API</span><span class="tag">Webhooks</span><span class="tag">CRM</span></div>
-        </div>
-        <span class="svc-arrow">↗</span>
+      <div class="project-info">
+        <div class="project-type">Web App — Healthcare</div>
+        <div class="project-name">NexGen Health</div>
+        <div class="project-desc">Patiëntenportaal met afspraken en dossier management</div>
       </div>
-      <div class="svc-item reveal">
-        <span class="svc-num">05</span>
-        <div class="svc-content">
-          <h3>Performance & SEO-optimalisatie</h3>
-          <p>Trage laadtijd of slechte Google-positie? Ik analyseer, optimaliseer en lever meetbaar resultaat. Core Web Vitals, technische SEO en snelheid als prioriteit.</p>
-          <div class="svc-tags"><span class="tag">Lighthouse</span><span class="tag">Core Web Vitals</span><span class="tag">SEO</span></div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-preview">
+        <div class="project-mockup">
+          <div class="mockup-browser">
+            <div class="browser-bar">
+              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+              <div class="browser-url">atlas-logistics.eu</div>
+            </div>
+            <div class="browser-content">
+              <div class="mock-line short"></div>
+              <div class="mock-line long accent"></div>
+              <div class="mock-blocks">
+                <div class="mock-block featured"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block"></div>
+                <div class="mock-block featured"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <span class="svc-arrow">↗</span>
+      </div>
+      <div class="project-info">
+        <div class="project-type">SaaS Platform — Logistiek</div>
+        <div class="project-name">Atlas Logistics</div>
+        <div class="project-desc">End-to-end supply chain management platform</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<!-- ═══════ PROCESS ═══════ -->
+<section class="process" id="werkwijze">
+  <div class="section-header reveal">
+    <div class="section-tag">Werkwijze</div>
+    <h2 class="section-title">Van idee naar <em style="font-family:'Playfair Display';color:var(--gold)">resultaat</em></h2>
+    <p class="section-subtitle">Een bewezen aanpak die zorgt voor projecten die op tijd, binnen budget en boven verwachting worden opgeleverd.</p>
+  </div>
 
-<!-- OVER MIJ -->
-<section id="over">
-  <div class="over-grid">
-    <div class="over-viz reveal">
-      <div class="over-portrait">
-        <canvas class="portrait-canvas" id="portraitCanvas"></canvas>
-      </div>
-      <div class="over-badge">
-        <div class="badge-dot"></div>
-        <div class="badge-text"><span>Status</span><strong>Beschikbaar voor opdrachten</strong></div>
-      </div>
-      <div class="over-floats">
-        <div class="over-float"><span class="float-val">5+</span><span class="float-lbl">Jaar</span></div>
-        <div class="over-float"><span class="float-val">40+</span><span class="float-lbl">Projecten</span></div>
-      </div>
+  <div class="process-timeline reveal">
+    <div class="process-step">
+      <div class="step-dot"></div>
+      <div class="step-num">FASE 01</div>
+      <h3>Discovery</h3>
+      <p>We duiken diep in jouw merk, doelgroep en doelen. Stakeholder interviews, marktanalyse en strategische planning.</p>
     </div>
-    <div class="reveal">
-      <div class="eyebrow">Over mij</div>
-      <h2>Hallo, ik ben<br/><strong>Ilyrian</strong></h2>
-      <p class="lead" style="margin-bottom:1rem;max-width:100%">Ik ben een zelfstandige webontwikkelaar vanuit Naarden met meer dan 5 jaar ervaring. Ik heb gewerkt voor bureaus, startups en gevestigde bedrijven — maar mijn passie ligt bij directe samenwerking met klanten die écht iets willen neerzetten.</p>
-      <p style="color:var(--ink3);font-size:0.95rem;font-weight:300;line-height:1.85;margin-bottom:0.9rem">Ik geloof dat goede techniek en doordacht design onscheidbaar zijn. Elke pixel heeft een reden, elke regel code een doel. Ik werk secuur, communiceer helder en lever op tijd — geen verrassingen.</p>
-      <p style="color:var(--ink3);font-size:0.95rem;font-weight:300;line-height:1.85">Of je nu een eerste website nodig hebt of een complex platform wilt laten bouwen: we beginnen altijd bij jouw verhaal.</p>
-      <div class="skills-wrap">
-        <div class="skills-label">Technische skills</div>
-        <div class="skill-bars" id="skillBars">
-          <div class="sb"><span class="sb-name">React / Next.js</span><div class="sb-track"><div class="sb-fill" style="width:95%"></div></div><span class="sb-pct">95%</span></div>
-          <div class="sb"><span class="sb-name">UI/UX Design</span><div class="sb-track"><div class="sb-fill" style="width:88%"></div></div><span class="sb-pct">88%</span></div>
-          <div class="sb"><span class="sb-name">Backend / API</span><div class="sb-track"><div class="sb-fill" style="width:85%"></div></div><span class="sb-pct">85%</span></div>
-          <div class="sb"><span class="sb-name">SEO & Performance</span><div class="sb-track"><div class="sb-fill" style="width:90%"></div></div><span class="sb-pct">90%</span></div>
-          <div class="sb"><span class="sb-name">E-commerce</span><div class="sb-track"><div class="sb-fill" style="width:82%"></div></div><span class="sb-pct">82%</span></div>
-        </div>
-      </div>
+    <div class="process-step">
+      <div class="step-dot"></div>
+      <div class="step-num">FASE 02</div>
+      <h3>Design</h3>
+      <p>Wireframes worden prototypes, prototypes worden pixel-perfect designs. Iteratief, met jouw feedback centraal.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-dot"></div>
+      <div class="step-num">FASE 03</div>
+      <h3>Develop</h3>
+      <p>Schone, performante code. Agile sprints met wekelijkse demo's zodat je altijd ziet wat er gebouwd wordt.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-dot"></div>
+      <div class="step-num">FASE 04</div>
+      <h3>Launch & Groei</h3>
+      <p>Zorgvuldige lancering, monitoring en doorlopende optimalisatie. Wij blijven betrokken na livegang.</p>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <div class="port-intro">
-    <div><div class="eyebrow">Geselecteerde werken</div><h2>Projecten die<br/><em>het verschil</em> maken</h2></div>
-    <p class="lead" style="max-width:320px;margin:0">Elk project vertelt een verhaal. Hier zijn de verhalen die mij het meest trots maken.</p>
+<!-- ═══════ TECH ═══════ -->
+<section class="tech">
+  <div class="tech-label">Technologieën waar wij mee werken</div>
+  <div class="tech-logos">
+    <div class="tech-item"><div class="icon">⚛</div><span>React</span></div>
+    <div class="tech-item"><div class="icon">▲</div><span>Next.js</span></div>
+    <div class="tech-item"><div class="icon">🟢</div><span>Vue.js</span></div>
+    <div class="tech-item"><div class="icon">🟩</div><span>Node.js</span></div>
+    <div class="tech-item"><div class="icon">🐘</div><span>PostgreSQL</span></div>
+    <div class="tech-item"><div class="icon">☁</div><span>AWS</span></div>
+    <div class="tech-item"><div class="icon">🎨</div><span>Figma</span></div>
+    <div class="tech-item"><div class="icon">🐳</div><span>Docker</span></div>
   </div>
-  <div class="port-grid">
-    <div class="pj pj-lg reveal">
-      <div class="pj-thumb"><canvas id="c1" height="180" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Analytics Dashboard</div><h3>Real-time Sales Dashboard — SaaS</h3><p>React dashboard met live grafieken, gebruikersbeheer en exports. 60% snellere besluitvorming bij de klant.</p></div>
+</section>
+
+<!-- ═══════ TESTIMONIAL ═══════ -->
+<section class="testimonial">
+  <div class="testimonial-inner reveal">
+    <div class="testimonial-quote">
+      Ilyrians heeft onze visie niet alleen begrepen, maar overtroffen. Het dashboard dat ze hebben gebouwd heeft onze besluitvorming fundamenteel veranderd.
     </div>
-    <div class="pj pj-sm reveal">
-      <div class="pj-thumb"><canvas id="c2" height="180" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Corporate Website</div><h3>Vastgoedbedrijf Naarden</h3><p>Nieuwe website met leadgeneratie. Conversie verdrievoudigd binnen 3 maanden na lancering.</p></div>
-    </div>
-    <div class="pj pj-md reveal">
-      <div class="pj-thumb"><canvas id="c3" height="160" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">E-commerce</div><h3>Webshop — Mode & Lifestyle</h3><p>Custom Shopify. Omzet verdubbeld na herontwerp.</p></div>
-    </div>
-    <div class="pj pj-md reveal">
-      <div class="pj-thumb"><canvas id="c4" height="160" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Webapplicatie</div><h3>Reserveringsplatform — Horeca</h3><p>Volledig boekingssysteem met Mollie-betalingen.</p></div>
-    </div>
-    <div class="pj pj-md reveal">
-      <div class="pj-thumb"><canvas id="c5" height="160" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Portaal</div><h3>Cliëntenportaal — Zorginstelling</h3><p>Beveiligd portaal met documenten en afspraken.</p></div>
-    </div>
-    <div class="pj pj-mid reveal">
-      <div class="pj-thumb"><canvas id="c6" height="170" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Marketing</div><h3>Conversie-landingspagina's — Bureau</h3><p>A/B-getest. Gemiddeld 5.8% conversieratio — ruim boven branchegemiddelde.</p></div>
-    </div>
-    <div class="pj pj-mid reveal">
-      <div class="pj-thumb"><canvas id="c7" height="170" style="width:100%;display:block"></canvas></div>
-      <div class="pj-body"><div class="pj-cat">Progressive Web App</div><h3>Logistiek Platform — Real-time</h3><p>PWA voor ritplanning met live statusupdates. Werkt offline.</p></div>
+    <div class="testimonial-author">
+      <div class="testimonial-name">Thomas de Vries</div>
+      <div class="testimonial-role">CTO — Aethon Finance</div>
     </div>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<!-- PROCES -->
-<section id="proces">
-  <div class="proces-grid">
-    <div class="reveal">
-      <div class="eyebrow">Werkwijze</div>
-      <h2>Van idee tot<br/><em>gelanceerd</em><br/><strong>product</strong></h2>
-      <p class="lead" style="margin-top:1rem">Ik werk gestructureerd maar flexibel. Jij weet altijd waar we staan en wat de volgende stap is.</p>
-      <canvas id="timelineViz" width="380" height="220" style="margin-top:2.5rem;display:block;max-width:100%"></canvas>
-    </div>
-    <div class="proces-steps reveal">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <h3>Intake & Strategie</h3>
-          <p>We starten met een gratis gesprek. Ik leer jouw bedrijf kennen, jouw doelen en doelgroep. Hieruit volgt een concreet plan van aanpak.</p>
-          <div class="step-days">~ 1–3 dagen</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <h3>Ontwerp & Wireframes</h3>
-          <p>Voordat er één regel code wordt geschreven, visualiseer ik de structuur en look & feel. Jij geeft feedback — net zolang tot het klopt.</p>
-          <div class="step-days">~ 3–7 dagen</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <h3>Ontwikkeling</h3>
-          <p>Het echte werk. Ik bouw jouw project op met schone, goed gedocumenteerde code. Regelmatige updates houden je op de hoogte.</p>
-          <div class="step-days">~ 1–4 weken</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <h3>Testen & Verfijnen</h3>
-          <p>Uitgebreide tests op alle apparaten en browsers. Snelheid, SEO en toegankelijkheid worden geoptimaliseerd voordat we live gaan.</p>
-          <div class="step-days">~ 2–4 dagen</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-content">
-          <h3>Lancering & Support</h3>
-          <p>We gaan live — samen. Na de lancering sta ik klaar voor vragen, aanpassingen en doorontwikkeling. Geen afsluiting, maar een begin.</p>
-          <div class="step-days">Doorlopend</div>
-        </div>
-      </div>
-    </div>
+<!-- ═══════ CTA ═══════ -->
+<section class="cta" id="contact">
+  <h2 class="section-title reveal">Klaar om iets<br><em style="font-family:'Playfair Display';color:var(--gold)">bijzonders</em> te bouwen?</h2>
+  <p class="reveal">Laten we kennismaken. Vertel ons over je project en we nemen binnen 24 uur contact op.</p>
+  <div class="reveal">
+    <button class="btn-primary" onclick="window.location.href='mailto:hello@ilyrians.nl'">Neem contact op</button>
   </div>
 </section>
 
-<div class="section-divider"></div>
-
-<!-- TARIEVEN -->
-<section id="tarieven">
-  <div class="eyebrow">Investering</div>
-  <h2>Helder geprijsd,<br/><em>eerlijk gecommuniceerd</em></h2>
-  <p class="lead">Geen verborgen kosten, geen vage beloften. Wat je ziet is wat je krijgt.</p>
-  <div class="price-wrap">
-    <div class="pc reveal">
-      <div class="pc-tier">Starter</div>
-      <div class="pc-amount">€749</div>
-      <p class="pc-tagline">Jouw eerste stap online, professioneel en krachtig</p>
-      <div class="pc-divider"></div>
-      <ul class="pc-features">
-        <li>Tot 5 pagina's op maat</li>
-        <li>Responsive design</li>
-        <li>Contactformulier</li>
-        <li>Basis SEO-optimalisatie</li>
-        <li>1 ronde revisies</li>
-        <li>Oplevering binnen 2 weken</li>
-      </ul>
-      <a href="#contact" class="pc-btn pc-outline">Offerte aanvragen</a>
-    </div>
-    <div class="pc pop reveal">
-      <div class="pop-label">Populairste keuze</div>
-      <div class="pc-tier">Professional</div>
-      <div class="pc-amount">€1.999</div>
-      <p class="pc-tagline">Voor bedrijven die serieus online willen groeien</p>
-      <div class="pc-divider"></div>
-      <ul class="pc-features">
-        <li>Tot 15 pagina's custom</li>
-        <li>Volledig op maat ontwerp</li>
-        <li>CMS-integratie</li>
-        <li>Uitgebreide SEO + Analytics</li>
-        <li>3 rondes revisies</li>
-        <li>6 maanden gratis support</li>
-      </ul>
-      <a href="#contact" class="pc-btn pc-gold">Aan de slag →</a>
-    </div>
-    <div class="pc reveal">
-      <div class="pc-tier">Maatwerk</div>
-      <div class="pc-amount" style="font-size:2.2rem;line-height:1.2">Op aanvraag</div>
-      <p class="pc-tagline">Complexe webapps, dashboards en platforms</p>
-      <div class="pc-divider"></div>
-      <ul class="pc-features">
-        <li>Volledig custom platform</li>
-        <li>Dashboard / webapplicatie</li>
-        <li>API-koppelingen & integraties</li>
-        <li>Gebruikersrollen & authenticatie</li>
-        <li>Dedicated support</li>
-        <li>Doorlopend onderhoud</li>
-      </ul>
-      <a href="#contact" class="pc-btn pc-outline">Bespreken</a>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div class="reveal">
-      <div class="eyebrow">Laten we praten</div>
-      <h2>Klaar om iets<br/><em>moois te bouwen?</em></h2>
-      <p>Heb je een project in gedachten of wil je gewoon weten wat er mogelijk is? Stuur een bericht — ik reageer doorgaans binnen één werkdag vanuit Naarden.</p>
-      <div class="c-detail"><div class="c-icon">📧</div><div class="c-info"><span>E-mail</span><strong>hallo@ilyrian.nl</strong></div></div>
-      <div class="c-detail"><div class="c-icon">📍</div><div class="c-info"><span>Locatie</span><strong>Naarden, Noord-Holland</strong></div></div>
-      <div class="c-detail"><div class="c-icon">⏱️</div><div class="c-info"><span>Reactietijd</span><strong>Binnen 24 uur op werkdagen</strong></div></div>
-      <div class="c-detail"><div class="c-icon">💻</div><div class="c-info"><span>Werkwijze</span><strong>Remote & On-site (regio Amsterdam)</strong></div></div>
-    </div>
-    <div class="cform reveal">
-      <div class="frow">
-        <div class="fg"><label>Naam</label><input type="text" placeholder="Jouw naam"/></div>
-        <div class="fg"><label>E-mail</label><input type="email" placeholder="jouw@email.nl"/></div>
-      </div>
-      <div class="fg"><label>Type project</label><select><option value="">Selecteer type project</option><option>Nieuwe website</option><option>Webshop</option><option>Dashboard / Webapplicatie</option><option>Website verbeteren</option><option>API-integratie</option><option>Anders</option></select></div>
-      <div class="fg"><label>Budget (indicatie)</label><select><option value="">Selecteer een range</option><option>€500 – €1.000</option><option>€1.000 – €2.500</option><option>€2.500 – €5.000</option><option>€5.000+</option></select></div>
-      <div class="fg"><label>Bericht</label><textarea placeholder="Vertel me over je project, doelen en wensen. Hoe specifieker, hoe beter ik je kan helpen..."></textarea></div>
-      <button class="csub" id="sb">Bericht versturen naar Ilyrian →</button>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
+<!-- ═══════ FOOTER ═══════ -->
 <footer>
-  <a href="#" class="f-logo">
-    <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><polygon points="16,2 28,9 28,23 16,30 4,23 4,9" stroke="#b8953a" stroke-width="1.5" fill="none"/><text x="16" y="20" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="10" font-weight="600" fill="#b8953a">I</text></svg>
-    <span class="f-logo-text">Ilyrian<span>.</span></span>
-  </a>
-  <p>© 2025 Ilyrian — Webontwikkeling vanuit Naarden</p>
-  <div class="f-links">
-    <a href="#diensten">Diensten</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#tarieven">Tarieven</a>
-    <a href="#contact">Contact</a>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="21,2 38,12 38,30 21,40 4,30 4,12" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+            <polygon points="21,8 32,14.5 32,27.5 21,34 10,27.5 10,14.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)"/>
+          </svg>
+        </div>
+        <div class="logo-text">ILYR<span>I</span>ANS</div>
+      </a>
+      <p>Digitale vakmanschap geïnspireerd door een rijke geschiedenis. Wij bouwen de digitale toekomst.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Diensten</h4>
+      <a href="#">Websites</a>
+      <a href="#">Dashboards</a>
+      <a href="#">Web Apps</a>
+      <a href="#">UI/UX Design</a>
+      <a href="#">Branding</a>
+    </div>
+    <div class="footer-col">
+      <h4>Bedrijf</h4>
+      <a href="#">Over Ons</a>
+      <a href="#">Team</a>
+      <a href="#">Werkwijze</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:hello@ilyrians.nl">hello@ilyrians.nl</a>
+      <a href="tel:+31201234567">+31 20 123 4567</a>
+      <a href="#">Amsterdam, NL</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Ilyrians. Alle rechten voorbehouden.</span>
+    <div class="footer-socials">
+      <a href="#">LinkedIn</a>
+      <a href="#">Instagram</a>
+      <a href="#">Dribbble</a>
+      <a href="#">GitHub</a>
+    </div>
   </div>
 </footer>
 
 <script>
-// ── CURSOR ──
-const cur = document.getElementById('cur'), ring = document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+// ═══════ NAV SCROLL ═══════
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
 
-// ── HERO CANVAS (animated particles + lines) ──
-(function(){
-  const cv=document.getElementById('heroCanvas');
-  if(!cv)return;
-  const ctx=cv.getContext('2d');
-  function resize(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
-  resize();window.addEventListener('resize',resize);
-  const pts=Array.from({length:55},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,vx:(Math.random()-0.5)*0.35,vy:(Math.random()-0.5)*0.35,r:Math.random()*1.8+0.5}));
-  function draw(){
-    ctx.clearRect(0,0,cv.width,cv.height);
-    pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1});
-    pts.forEach((a,i)=>{pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(184,149,58,${0.12*(1-d/130)})`;ctx.lineWidth=0.8;ctx.stroke()}})});
-    pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(184,149,58,0.35)';ctx.fill()});
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+// ═══════ CURSOR GLOW ═══════
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', (e) => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
 
-// ── PORTRAIT CANVAS (abstract art) ──
-(function(){
-  const cv=document.getElementById('portraitCanvas');
-  if(!cv)return;
-  cv.width=cv.offsetWidth||350;cv.height=cv.offsetHeight||466;
-  const ctx=cv.getContext('2d');
-  // background
-  const gr=ctx.createLinearGradient(0,0,cv.width,cv.height);
-  gr.addColorStop(0,'#f0faf6');gr.addColorStop(1,'#faf9f6');
-  ctx.fillStyle=gr;ctx.fillRect(0,0,cv.width,cv.height);
-  // concentric hexagons
-  function hex(cx,cy,r,col,lw){
-    ctx.beginPath();
-    for(let i=0;i<6;i++){const a=Math.PI/180*(60*i-30);const x=cx+r*Math.cos(a);const y=cy+r*Math.sin(a);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
-    ctx.closePath();ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke();
-  }
-  const cx=cv.width/2,cy=cv.height*0.42;
-  [130,100,72,46,24].forEach((r,i)=>hex(cx,cy,r,`rgba(184,149,58,${0.06+i*0.04})`,1));
-  // gold circle
-  ctx.beginPath();ctx.arc(cx,cy,18,0,Math.PI*2);
-  const cg=ctx.createRadialGradient(cx,cy,0,cx,cy,18);
-  cg.addColorStop(0,'rgba(212,174,90,0.6)');cg.addColorStop(1,'rgba(184,149,58,0.15)');
-  ctx.fillStyle=cg;ctx.fill();
-  // name text
-  ctx.font='600 38px "Cormorant Garamond",serif';ctx.fillStyle='rgba(15,14,12,0.08)';ctx.textAlign='center';ctx.fillText('ILYRIAN',cx,cv.height*0.78);
-  ctx.font='300 13px "DM Sans",sans-serif';ctx.fillStyle='rgba(90,87,80,0.5)';ctx.letterSpacing='0.14em';ctx.fillText('WEBONTWIKKELAAR · NAARDEN',cx,cv.height*0.86);
-  // floating dots
-  [[cx-80,cy-60],[cx+90,cy+40],[cx-50,cy+100],[cx+60,cy-90]].forEach(([x,y])=>{
-    ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fillStyle='rgba(184,149,58,0.3)';ctx.fill();
-  });
-})();
-
-// ── PROJECT CANVASES ──
-function drawDashboard(id,c1,c2){
-  const cv=document.getElementById(id);if(!cv)return;
-  cv.width=cv.offsetWidth||600;const ctx=cv.getContext('2d');
-  ctx.fillStyle=c1;ctx.fillRect(0,0,cv.width,cv.height);
-  // mock chart bars
-  const vals=[45,70,55,80,65,90,75,60,85,70,95,80];
-  const bw=(cv.width-40)/(vals.length*1.8);const maxH=cv.height-45;
-  vals.forEach((v,i)=>{
-    const x=20+i*(bw*1.8);const h=(v/100)*maxH*0.75;const y=cv.height-20-h;
-    const gr=ctx.createLinearGradient(0,y,0,cv.height-20);
-    gr.addColorStop(0,c2);gr.addColorStop(1,'rgba(184,149,58,0.15)');
-    ctx.fillStyle=gr;ctx.beginPath();ctx.roundRect(x,y,bw,h,2);ctx.fill();
-  });
-  // mock line
-  ctx.beginPath();const lineVals=[40,55,48,72,60,85,70,58,80,65,90,75];
-  lineVals.forEach((v,i)=>{const x=20+i*(bw*1.8)+bw/2;const y=cv.height-20-(v/100)*maxH*0.75;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
-  ctx.strokeStyle='rgba(184,149,58,0.6)';ctx.lineWidth=1.5;ctx.stroke();
-  // dots
-  lineVals.forEach((v,i)=>{const x=20+i*(bw*1.8)+bw/2;const y=cv.height-20-(v/100)*maxH*0.75;ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fillStyle='#b8953a';ctx.fill()});
-}
-function drawWave(id,c1,c2){
-  const cv=document.getElementById(id);if(!cv)return;
-  cv.width=cv.offsetWidth||400;const ctx=cv.getContext('2d');
-  ctx.fillStyle=c1;ctx.fillRect(0,0,cv.width,cv.height);
-  for(let w=0;w<3;w++){
-    ctx.beginPath();
-    for(let x=0;x<=cv.width;x+=2){
-      const y=cv.height/2+Math.sin((x/cv.width)*Math.PI*4+w)*((cv.height*0.18)/(w+1));
-      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+// ═══════ REVEAL ON SCROLL ═══════
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 80);
+      observer.unobserve(entry.target);
     }
-    ctx.strokeStyle=c2.replace(')',`,${0.35-w*0.1})`).replace('rgb','rgba');
-    ctx.lineWidth=1.5-w*0.3;ctx.stroke();
-  }
-  // dots grid
-  for(let i=0;i<5;i++)for(let j=0;j<3;j++){
-    ctx.beginPath();ctx.arc(cv.width*0.15+i*(cv.width*0.17),cv.height*0.2+j*(cv.height*0.28),2,0,Math.PI*2);
-    ctx.fillStyle='rgba(184,149,58,0.25)';ctx.fill();
-  }
-}
-function drawGrid(id,c1){
-  const cv=document.getElementById(id);if(!cv)return;
-  cv.width=cv.offsetWidth||400;const ctx=cv.getContext('2d');
-  ctx.fillStyle=c1;ctx.fillRect(0,0,cv.width,cv.height);
-  const cols=8,rows=5,cw=cv.width/cols,ch=cv.height/rows;
-  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
-    if(Math.random()>0.55){
-      ctx.fillStyle=`rgba(184,149,58,${Math.random()*0.18+0.04})`;
-      ctx.beginPath();ctx.roundRect(c*cw+2,r*ch+2,cw-4,ch-4,2);ctx.fill();
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+
+// ═══════ COUNTER ANIMATION ═══════
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target;
+      }
+
+      requestAnimationFrame(update);
+      counterObserver.unobserve(el);
     }
-  }
-  // accent box
-  ctx.fillStyle='rgba(184,149,58,0.25)';ctx.beginPath();ctx.roundRect(cw*2+2,ch+2,cw*2-4,ch*2-4,4);ctx.fill();
-}
-
-setTimeout(()=>{
-  drawDashboard('c1','#f0faf6','rgb(26,158,114)');
-  drawDashboard('c2','#fef9ee','rgb(184,149,58)');
-  drawWave('c3','#f5f0ff','rgb(139,92,246)');
-  drawGrid('c4','#f0faf6');
-  drawWave('c5','#eff6ff','rgb(37,99,235)');
-  drawDashboard('c6','#fff7ed','rgb(234,88,12)');
-  drawGrid('c7','#f0f9ff');
-},100);
-
-// ── RADAR CHART ──
-(function(){
-  const cv=document.getElementById('radarChart');if(!cv)return;
-  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height,cx=W/2,cy=H/2,R=85;
-  const labels=['Websites','Dashboards','E-commerce','API','SEO','Design'];
-  const vals=[0.95,0.92,0.85,0.88,0.9,0.87];
-  const N=labels.length;
-  function pt(i,r){const a=Math.PI*2/N*i-Math.PI/2;return[cx+r*Math.cos(a),cy+r*Math.sin(a)]}
-  // grid
-  [0.25,0.5,0.75,1].forEach(f=>{
-    ctx.beginPath();
-    for(let i=0;i<N;i++){const[x,y]=pt(i,R*f);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
-    ctx.closePath();ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=0.8;ctx.stroke();
   });
-  // spokes
-  for(let i=0;i<N;i++){const[x,y]=pt(i,R);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.strokeStyle='rgba(0,0,0,0.07)';ctx.lineWidth=0.8;ctx.stroke()}
-  // filled area
-  ctx.beginPath();
-  vals.forEach((v,i)=>{const[x,y]=pt(i,R*v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)});
-  ctx.closePath();
-  const gr=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
-  gr.addColorStop(0,'rgba(184,149,58,0.25)');gr.addColorStop(1,'rgba(184,149,58,0.08)');
-  ctx.fillStyle=gr;ctx.fill();
-  ctx.strokeStyle='rgba(184,149,58,0.7)';ctx.lineWidth=1.5;ctx.stroke();
-  // dots
-  vals.forEach((v,i)=>{const[x,y]=pt(i,R*v);ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fillStyle='#b8953a';ctx.fill()});
-  // labels
-  ctx.font='500 10px DM Sans,sans-serif';ctx.fillStyle='rgba(46,44,40,0.65)';ctx.textAlign='center';
-  labels.forEach((l,i)=>{const[x,y]=pt(i,R+18);ctx.fillText(l,x,y+4)});
-})();
+}, { threshold: 0.5 });
 
-// ── TIMELINE VIZ ──
-(function(){
-  const cv=document.getElementById('timelineViz');if(!cv)return;
-  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-  const phases=[{label:'Intake',w:0.12},{label:'Ontwerp',w:0.18},{label:'Bouw',w:0.38},{label:'Test',w:0.14},{label:'Live',w:0.1}];
-  const colors=['#e8e5de','#d4ae5a','#b8953a','#d4ae5a','#1a9e72'];
-  let x=20;const y=H*0.35,h=28;
-  phases.forEach((p,i)=>{
-    const pw=(W-40)*p.w;
-    ctx.fillStyle=colors[i];ctx.beginPath();ctx.roundRect(x,y,pw-3,h,3);ctx.fill();
-    ctx.font=`300 10px DM Sans,sans-serif`;ctx.fillStyle=i===0?'rgba(46,44,40,0.5)':'rgba(250,249,246,0.9)';
-    ctx.textAlign='center';ctx.fillText(p.label,x+pw/2-1.5,y+h/2+3.5);
-    x+=pw;
+counters.forEach(el => counterObserver.observe(el));
+
+// ═══════ SMOOTH ANCHOR SCROLLS ═══════
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
-  // legend
-  const leg=[{c:'#e8e5de',l:'Planning'},{c:'#b8953a',l:'Uitvoering'},{c:'#1a9e72',l:'Lancering'}];
-  leg.forEach((l,i)=>{
-    ctx.fillStyle=l.c;ctx.beginPath();ctx.roundRect(20+i*110,H*0.72,10,10,2);ctx.fill();
-    ctx.font='300 10px DM Sans,sans-serif';ctx.fillStyle='rgba(90,87,80,0.7)';ctx.textAlign='left';ctx.fillText(l.l,35+i*110,H*0.72+9);
-  });
-})();
-
-// ── COUNTERS ──
-function animCount(el,target,suffix){
-  let v=0;const step=Math.ceil(target/40);
-  const t=setInterval(()=>{v=Math.min(v+step,target);el.textContent=v+suffix;if(v>=target)clearInterval(t)},40);
-}
-setTimeout(()=>{
-  animCount(document.getElementById('expCounter'),5,'+');
-  animCount(document.getElementById('projCounter'),40,'+');
-},600);
-
-// ── SKILL BARS ──
-const skillObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.sb-fill').forEach((b,i)=>setTimeout(()=>b.classList.add('animate'),i*120))});
-},{threshold:0.3});
-const sbSection=document.getElementById('skillBars');
-if(sbSection)skillObs.observe(sbSection);
-
-// ── REVEAL ANIMATIONS ──
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*80)});
-},{threshold:0.07,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-
-// ── SUBMIT ──
-document.getElementById('sb').addEventListener('click',function(){
-  this.textContent='Verstuurd! Ilyrian neemt contact op ✓';
-  this.style.background='#1a9e72';
-  setTimeout(()=>{this.textContent='Bericht versturen naar Ilyrian →';this.style.background=''},3500);
 });
 </script>
+
 </body>
 </html>
