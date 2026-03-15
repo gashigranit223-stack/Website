@@ -212,7 +212,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.6);padding:80px 0 40px}
         <div id="formContent">
           <div class="form-title">Offerte aanvragen</div>
           <div class="form-subtitle">Vul onderstaand formulier in en wij nemen snel contact op.</div>
-          <form id="contactForm" onsubmit="handleSubmit(event)">
+          <form id="contactForm" action="https://formspree.io/f/xpqyjyeb" method="POST" onsubmit="handleSubmit(event)"> 
             <div class="form-row">
               <div class="form-group"><label>Voornaam <span class="required">*</span></label><input type="text" placeholder="Jan" required></div>
               <div class="form-group"><label>Achternaam <span class="required">*</span></label><input type="text" placeholder="de Vries" required></div>
@@ -288,9 +288,19 @@ function selectBudget(el){document.querySelectorAll('.budget-option').forEach(o=
 // Form submit
 function handleSubmit(e){
   e.preventDefault();
-  document.getElementById('formContent').style.display='none';
-  document.getElementById('formSuccess').classList.add('show');
-  window.scrollTo({top:document.getElementById('contactFormCard').offsetTop-100,behavior:'smooth'});
+  var form = document.getElementById('contactForm');
+  var data = new FormData(form);
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  }).then(function(response) {
+    if (response.ok) {
+      document.getElementById('formContent').style.display='none';
+      document.getElementById('formSuccess').classList.add('show');
+      window.scrollTo({top:document.getElementById('contactFormCard').offsetTop-100,behavior:'smooth'});
+    }
+  });
 }
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
