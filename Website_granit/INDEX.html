@@ -3,1480 +3,1231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ilyrians — Digital Craftsmanship</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Ilyrians — Apps, Websites & Dashboards laten maken</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --gold: #C9A84C;
-  --gold-light: #E8D5A3;
-  --gold-dark: #8B6914;
-  --bg-primary: #0A0A0F;
-  --bg-secondary: #111118;
-  --bg-card: #16161F;
-  --bg-card-hover: #1C1C28;
-  --text-primary: #F0EDE6;
-  --text-secondary: #8A8A9A;
-  --text-muted: #55556A;
-  --accent: #4A6CF7;
-  --accent-teal: #2DD4BF;
-  --border: rgba(201, 168, 76, 0.12);
-  --border-light: rgba(255,255,255,0.06);
+  --primary: #1B4DFF;
+  --primary-dark: #0A33CC;
+  --primary-light: #E8EEFF;
+  --accent: #00C896;
+  --accent-light: #E5FFF6;
+  --dark: #0F1729;
+  --dark-600: #2A3350;
+  --dark-400: #596380;
+  --dark-300: #8891A5;
+  --dark-200: #BFC5D2;
+  --dark-100: #E4E7ED;
+  --dark-50: #F4F5F7;
+  --white: #FFFFFF;
+  --orange: #FF6B35;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 3px rgba(15,23,41,0.06);
+  --shadow-md: 0 4px 20px rgba(15,23,41,0.08);
+  --shadow-lg: 0 12px 40px rgba(15,23,41,0.1);
+  --shadow-xl: 0 20px 60px rgba(15,23,41,0.12);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-dark) var(--bg-primary);
-}
-
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--dark);
+  background: var(--white);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* ═══════ CURSOR GLOW ═══════ */
-.cursor-glow {
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: left 0.3s ease, top 0.3s ease;
-}
-
-/* ═══════ GEOMETRIC PATTERN ═══════ */
-.geo-pattern {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.03;
-  background-image:
-    linear-gradient(30deg, var(--gold) 1px, transparent 1px),
-    linear-gradient(150deg, var(--gold) 1px, transparent 1px);
-  background-size: 60px 100px;
-}
-
-/* ═══════ NAVIGATION ═══════ */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 20px 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.4s ease;
-  backdrop-filter: blur(0px);
-}
-
-nav.scrolled {
-  padding: 14px 60px;
-  background: rgba(10,10,15,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-}
-
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  position: relative;
-}
-
-.logo-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.logo-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: 2px;
-}
-
-.logo-text span {
-  color: var(--gold);
-}
-
-.nav-links {
-  display: flex;
-  gap: 40px;
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.3s;
-  position: relative;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: var(--gold);
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover { color: var(--gold); }
-.nav-links a:hover::after { width: 100%; }
-
-.nav-cta {
-  padding: 10px 28px;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold) !important;
-  border-radius: 4px;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-transform: uppercase !important;
-  font-size: 0.8rem !important;
-  letter-spacing: 1.5px !important;
-}
-
-.nav-cta:hover {
-  background: var(--gold) !important;
-  color: var(--bg-primary) !important;
-}
-
-.nav-cta::after { display: none !important; }
-
-/* ═══════ HERO ═══════ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 0 60px;
-  overflow: hidden;
-}
-
-.hero-bg-lines {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-}
-
-.hero-bg-lines .line {
-  position: absolute;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent, var(--border), transparent);
-}
-
-.hero-bg-lines .line:nth-child(1) { left: 20%; }
-.hero-bg-lines .line:nth-child(2) { left: 40%; }
-.hero-bg-lines .line:nth-child(3) { left: 60%; }
-.hero-bg-lines .line:nth-child(4) { left: 80%; }
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 900px;
-}
-
-.hero-badge {
+/* ─── UTILITY ─── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.tag {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 20px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 40px;
-  animation: fadeSlideUp 0.8s ease forwards;
-  opacity: 0;
-}
-
-.hero-badge .dot {
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: pulse 2s ease infinite;
-}
-
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  font-weight: 900;
-  line-height: 1.05;
-  margin-bottom: 30px;
-  animation: fadeSlideUp 0.8s ease 0.15s forwards;
-  opacity: 0;
-}
-
-.hero h1 .italic {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--gold);
-}
-
-.hero h1 .outline {
-  -webkit-text-stroke: 1.5px var(--text-primary);
-  color: transparent;
-}
-
-.hero-desc {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  max-width: 560px;
-  margin-bottom: 50px;
-  animation: fadeSlideUp 0.8s ease 0.3s forwards;
-  opacity: 0;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  animation: fadeSlideUp 0.8s ease 0.45s forwards;
-  opacity: 0;
-}
-
-.btn-primary {
-  padding: 16px 40px;
-  background: var(--gold);
-  color: var(--bg-primary);
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+}
+.tag .dot {
+  width: 6px; height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
 }
 
-.btn-primary:hover {
-  background: var(--gold-light);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 40px rgba(201,168,76,0.25);
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--dark-100);
+  transition: box-shadow 0.3s;
 }
-
-.btn-secondary {
-  padding: 16px 40px;
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-light);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
+nav.scrolled { box-shadow: var(--shadow-sm); }
+.nav-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  height: 72px; max-width: 1200px; margin: 0 auto; padding: 0 24px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
   text-decoration: none;
 }
-
-.btn-secondary:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+.nav-logo svg { width: 36px; height: 36px; }
+.nav-logo-text {
+  font-size: 1.35rem; font-weight: 800; color: var(--dark);
+  letter-spacing: -0.02em;
 }
-
-.hero-visual {
-  position: absolute;
-  right: -50px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 550px;
-  height: 550px;
-  opacity: 0.6;
+.nav-logo-text span { color: var(--primary); }
+.nav-links {
+  display: flex; align-items: center; gap: 32px; list-style: none;
 }
-
-.hero-shield {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  animation: rotateFloat 30s linear infinite;
+.nav-links a {
+  font-size: 0.9rem; font-weight: 500; color: var(--dark-400);
+  text-decoration: none; transition: color 0.2s;
 }
-
-.hero-shield svg {
-  width: 100%;
-  height: 100%;
+.nav-links a:hover { color: var(--dark); }
+.nav-cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px;
+  background: var(--primary); color: var(--white);
+  border: none; border-radius: 10px;
+  font-family: inherit; font-size: 0.875rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; text-decoration: none;
 }
+.nav-cta-btn:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(27,77,255,0.3); }
+.mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.mobile-menu-btn span { display: block; width: 22px; height: 2px; background: var(--dark); margin: 5px 0; border-radius: 2px; transition: 0.3s; }
 
-/* ═══════ STATS BAR ═══════ */
-.stats-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position: relative;
-  z-index: 2;
+/* ─── HERO ─── */
+.hero {
+  padding: 140px 0 80px;
+  background: linear-gradient(180deg, var(--dark-50) 0%, var(--white) 100%);
+  position: relative; overflow: hidden;
 }
-
-.stat-item {
-  padding: 50px 60px;
-  border-right: 1px solid var(--border);
-  text-align: center;
-}
-
-.stat-item:last-child { border-right: none; }
-
-.stat-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--gold);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.stat-label {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* ═══════ SECTION HEADERS ═══════ */
-.section-header {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.section-tag {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.section-tag::before,
-.section-tag::after {
+.hero::before {
   content: '';
-  position: absolute;
-  top: 50%;
-  width: 40px;
-  height: 1px;
-  background: var(--border);
-}
-
-.section-tag::before { right: calc(100% + 16px); }
-.section-tag::after { left: calc(100% + 16px); }
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 20px;
-}
-
-.section-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* ═══════ SERVICES ═══════ */
-.services {
-  padding: 140px 60px;
-  position: relative;
-  z-index: 2;
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
-.service-card {
-  background: var(--bg-card);
-  padding: 55px 45px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 3px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s ease;
-}
-
-.service-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-4px);
-}
-
-.service-card:hover::before {
-  transform: scaleX(1);
-}
-
-.service-icon {
-  width: 56px;
-  height: 56px;
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  font-size: 1.4rem;
-  transition: all 0.4s;
-}
-
-.service-card:hover .service-icon {
-  border-color: var(--gold);
-  background: rgba(201,168,76,0.08);
-}
-
-.service-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-}
-
-.service-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-}
-
-.service-card p {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 30px;
-}
-
-.service-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.service-tags span {
-  padding: 4px 14px;
-  border: 1px solid var(--border-light);
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.3s;
-}
-
-.service-card:hover .service-tags span {
-  border-color: var(--border);
-  color: var(--text-secondary);
-}
-
-/* ═══════ PROJECTS ═══════ */
-.projects {
-  padding: 140px 60px;
-  position: relative;
-  z-index: 2;
-  background: var(--bg-secondary);
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
-
-.project-card {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  group: true;
-  aspect-ratio: 16/10;
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  transition: all 0.5s;
-}
-
-.project-card:hover {
-  border-color: var(--gold);
-  transform: translateY(-4px);
-}
-
-.project-preview {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-mockup {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.mockup-browser {
-  width: 85%;
-  height: 80%;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--bg-primary);
-  transition: transform 0.5s ease;
-}
-
-.project-card:hover .mockup-browser {
-  transform: scale(1.02);
-}
-
-.browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border-light);
-}
-
-.browser-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--text-muted);
-}
-
-.browser-dot:first-child { background: #FF5F57; }
-.browser-dot:nth-child(2) { background: #FEBC2E; }
-.browser-dot:nth-child(3) { background: #28C840; }
-
-.browser-url {
-  margin-left: 12px;
-  padding: 4px 16px;
-  background: var(--bg-primary);
-  border-radius: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  flex: 1;
-}
-
-.browser-content {
-  padding: 20px;
-  height: calc(100% - 38px);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mock-line {
-  height: 8px;
-  background: var(--border-light);
-  border-radius: 4px;
-}
-
-.mock-line.short { width: 40%; }
-.mock-line.medium { width: 65%; }
-.mock-line.long { width: 85%; }
-.mock-line.gold { background: rgba(201,168,76,0.15); }
-.mock-line.accent { background: rgba(74,108,247,0.15); }
-
-.mock-blocks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 8px;
-  flex: 1;
-}
-
-.mock-block {
-  background: var(--border-light);
-  border-radius: 6px;
-}
-
-.mock-block.featured {
-  grid-column: span 2;
-  background: rgba(201,168,76,0.08);
-  border: 1px solid var(--border);
-}
-
-.project-info {
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  padding: 30px;
-  background: linear-gradient(transparent, rgba(10,10,15,0.95));
-}
-
-.project-type {
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 8px;
-}
-
-.project-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.project-desc {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  margin-top: 6px;
-}
-
-/* ═══════ PROCESS ═══════ */
-.process {
-  padding: 140px 60px;
-  position: relative;
-  z-index: 2;
-}
-
-.process-timeline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  position: relative;
-}
-
-.process-timeline::before {
-  content: '';
-  position: absolute;
-  top: 40px;
-  left: 12.5%;
-  right: 12.5%;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border), var(--gold), var(--border));
-}
-
-.process-step {
-  text-align: center;
-  padding: 0 30px;
-  position: relative;
-}
-
-.step-dot {
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  margin: 0 auto 30px;
-  position: relative;
-  background: var(--bg-primary);
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.step-dot::after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-}
-
-.step-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--gold);
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.process-step h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  margin-bottom: 14px;
-}
-
-.process-step p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-/* ═══════ TECH STACK ═══════ */
-.tech {
-  padding: 100px 60px;
-  background: var(--bg-secondary);
-  position: relative;
-  z-index: 2;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.tech-label {
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 50px;
-}
-
-.tech-logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 60px;
-  flex-wrap: wrap;
-}
-
-.tech-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  opacity: 0.4;
-  transition: opacity 0.3s;
-  cursor: default;
-}
-
-.tech-item:hover { opacity: 1; }
-
-.tech-item .icon {
-  font-size: 2rem;
-  filter: grayscale(1);
-  transition: filter 0.3s;
-}
-
-.tech-item:hover .icon { filter: none; }
-
-.tech-item span {
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-/* ═══════ TESTIMONIAL ═══════ */
-.testimonial {
-  padding: 140px 60px;
-  position: relative;
-  z-index: 2;
-}
-
-.testimonial-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.testimonial-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-style: italic;
-  line-height: 1.6;
-  color: var(--text-primary);
-  margin-bottom: 40px;
-  position: relative;
-}
-
-.testimonial-quote::before {
-  content: '"';
-  position: absolute;
-  top: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 6rem;
-  color: var(--gold);
-  opacity: 0.2;
-  font-style: normal;
-  line-height: 1;
-}
-
-.testimonial-author {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.testimonial-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.testimonial-role {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-/* ═══════ CTA ═══════ */
-.cta {
-  padding: 160px 60px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  background: var(--bg-secondary);
-  overflow: hidden;
-}
-
-.cta::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(27,77,255,0.06), transparent 70%);
   pointer-events: none;
 }
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-content { position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 800; line-height: 1.12;
+  letter-spacing: -0.03em; margin: 20px 0 24px;
+}
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--primary), #6366F1);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-desc {
+  font-size: 1.1rem; color: var(--dark-400); line-height: 1.7;
+  max-width: 480px; margin-bottom: 36px;
+}
+.hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 32px;
+  background: var(--primary); color: var(--white);
+  border: none; border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+}
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,77,255,0.3); }
+.btn-primary svg { width: 18px; height: 18px; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 32px;
+  background: var(--white); color: var(--dark);
+  border: 1.5px solid var(--dark-200); border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: all 0.25s; text-decoration: none;
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-.cta h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 700;
-  margin-bottom: 24px;
+.hero-trust {
+  display: flex; align-items: center; gap: 16px; margin-top: 40px;
+}
+.trust-avatars { display: flex; }
+.trust-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 2.5px solid var(--white);
+  margin-left: -10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700; color: var(--white);
+}
+.trust-avatar:first-child { margin-left: 0; }
+.trust-text { font-size: 0.85rem; color: var(--dark-300); }
+.trust-text strong { color: var(--dark); font-weight: 700; }
+.trust-stars { color: #FBBF24; font-size: 0.9rem; }
+
+.hero-visual { position: relative; display: flex; justify-content: center; }
+.phone-mockup {
+  width: 260px; height: 520px; background: var(--dark);
+  border-radius: 40px; padding: 12px;
+  box-shadow: var(--shadow-xl); position: relative; z-index: 2;
+  transform: rotate(2deg);
+}
+.phone-screen {
+  width: 100%; height: 100%; background: var(--white);
+  border-radius: 30px; overflow: hidden; position: relative;
+}
+.phone-notch {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 100px; height: 28px; background: var(--dark); border-radius: 0 0 18px 18px; z-index: 5;
+}
+.phone-app {
+  padding: 44px 16px 16px; height: 100%;
+  background: linear-gradient(180deg, var(--primary-light) 0%, var(--white) 40%);
+}
+.phone-app-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px;
+}
+.phone-app-logo { font-size: 0.7rem; font-weight: 800; color: var(--primary); }
+.phone-app-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--primary-light); border: 1.5px solid var(--primary); }
+.phone-card {
+  background: var(--white); border-radius: 12px; padding: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 10px;
+}
+.phone-card-title { font-size: 0.6rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.phone-card-bar { height: 6px; border-radius: 3px; background: var(--dark-100); margin-bottom: 4px; }
+.phone-card-bar.fill-1 { width: 80%; background: linear-gradient(90deg, var(--primary), #6366F1); }
+.phone-card-bar.fill-2 { width: 60%; background: linear-gradient(90deg, var(--accent), #00E6A7); }
+.phone-card-bar.fill-3 { width: 45%; background: linear-gradient(90deg, var(--orange), #FF9B6B); }
+.phone-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.phone-stat-box {
+  background: var(--white); border-radius: 10px; padding: 10px; text-align: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.phone-stat-num { font-size: 1rem; font-weight: 800; color: var(--primary); }
+.phone-stat-label { font-size: 0.45rem; color: var(--dark-300); margin-top: 2px; }
+.phone-nav-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 50px; background: var(--white);
+  border-top: 1px solid var(--dark-100);
+  display: flex; justify-content: space-around; align-items: center;
+  padding: 0 20px; border-radius: 0 0 30px 30px;
+}
+.phone-nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dark-200); }
+.phone-nav-dot.active { background: var(--primary); width: 20px; border-radius: 4px; }
+
+.floating-card {
+  position: absolute; background: var(--white); border-radius: 14px;
+  padding: 16px 20px; box-shadow: var(--shadow-lg); z-index: 3;
+  animation: floatUp 3s ease-in-out infinite alternate;
+}
+.floating-card-1 { top: 60px; left: -30px; }
+.floating-card-2 { bottom: 80px; right: -20px; animation-delay: 1.5s; }
+.fc-label { font-size: 0.65rem; color: var(--dark-300); font-weight: 500; }
+.fc-value { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin-top: 2px; }
+.fc-value.green { color: var(--accent); }
+.fc-row { display: flex; align-items: center; gap: 8px; }
+.fc-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+}
+.fc-icon.blue { background: var(--primary-light); }
+.fc-icon.green { background: var(--accent-light); }
+
+@keyframes floatUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+/* ─── CLIENTS ─── */
+.clients {
+  padding: 60px 0;
+  border-top: 1px solid var(--dark-100);
+  border-bottom: 1px solid var(--dark-100);
+}
+.clients-label {
+  text-align: center; font-size: 0.8rem; font-weight: 500;
+  color: var(--dark-300); letter-spacing: 0.05em; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.clients-grid {
+  display: flex; justify-content: center; align-items: center;
+  gap: 50px; flex-wrap: wrap;
+}
+.client-logo {
+  font-size: 1.2rem; font-weight: 800; color: var(--dark-200);
+  letter-spacing: -0.02em; transition: color 0.3s; cursor: default;
+  white-space: nowrap;
+}
+.client-logo:hover { color: var(--dark-400); }
+
+/* ─── SECTION STYLES ─── */
+.section { padding: 100px 0; }
+.section.gray { background: var(--dark-50); }
+.section-header { text-align: center; margin-bottom: 64px; }
+.section-header .tag { margin-bottom: 16px; }
+.section-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  line-height: 1.2; margin-bottom: 16px;
+}
+.section-header p {
+  font-size: 1.05rem; color: var(--dark-400);
+  max-width: 560px; margin: 0 auto; line-height: 1.7;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.service-card {
+  background: var(--white); border: 1px solid var(--dark-100);
+  border-radius: var(--radius); padding: 36px 30px;
+  transition: all 0.35s cubic-bezier(0.22,1,0.36,1);
+  cursor: default; position: relative; overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--primary);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.service-card:hover {
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}
+.service-card:hover::after { transform: scaleX(1); }
+.service-icon-wrap {
+  width: 52px; height: 52px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 22px;
+}
+.service-icon-wrap.blue { background: var(--primary-light); }
+.service-icon-wrap.green { background: var(--accent-light); }
+.service-icon-wrap.orange { background: #FFF0E8; }
+.service-icon-wrap.purple { background: #F0EAFF; }
+.service-icon-wrap.pink { background: #FEE7EF; }
+.service-icon-wrap.cyan { background: #E5FAFF; }
+.service-card h3 {
+  font-size: 1.15rem; font-weight: 700; margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.service-card p {
+  font-size: 0.9rem; color: var(--dark-400); line-height: 1.65;
+}
+.service-arrow {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 20px; font-size: 0.8rem; font-weight: 600;
+  color: var(--primary); opacity: 0; transform: translateX(-8px);
+  transition: all 0.3s;
+}
+.service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+
+/* ─── PORTFOLIO ─── */
+.portfolio-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+.portfolio-card {
+  background: var(--white); border: 1px solid var(--dark-100);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.35s; cursor: pointer;
+}
+.portfolio-card:hover {
+  box-shadow: var(--shadow-lg); transform: translateY(-4px);
+  border-color: transparent;
+}
+.portfolio-visual {
+  height: 280px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.portfolio-visual.bg-1 { background: linear-gradient(135deg, #EEF2FF, #E0E7FF); }
+.portfolio-visual.bg-2 { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); }
+.portfolio-visual.bg-3 { background: linear-gradient(135deg, #FFF7ED, #FFEDD5); }
+.portfolio-visual.bg-4 { background: linear-gradient(135deg, #F5F3FF, #EDE9FE); }
+
+.mini-dashboard {
+  width: 85%; height: 85%; background: var(--white);
+  border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  overflow: hidden; transition: transform 0.5s;
+}
+.portfolio-card:hover .mini-dashboard { transform: scale(1.03); }
+.mini-db-bar {
+  height: 32px; background: var(--dark);
+  display: flex; align-items: center; padding: 0 12px; gap: 6px;
+}
+.mini-db-dot { width: 7px; height: 7px; border-radius: 50%; }
+.mini-db-dot.r { background: #FF5F57; }
+.mini-db-dot.y { background: #FEBC2E; }
+.mini-db-dot.g { background: #28C840; }
+.mini-db-url {
+  margin-left: 10px; padding: 3px 12px;
+  background: rgba(255,255,255,0.1); border-radius: 4px;
+  font-size: 0.55rem; color: rgba(255,255,255,0.5);
+  font-family: 'Inter', monospace;
+}
+.mini-db-content { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.mini-db-row { display: flex; gap: 10px; }
+.mini-db-block {
+  border-radius: 6px; background: var(--dark-50); flex: 1;
+}
+.mini-db-block.h40 { height: 40px; }
+.mini-db-block.h60 { height: 60px; }
+.mini-db-block.h80 { height: 80px; }
+.mini-db-block.accent { background: var(--primary-light); }
+.mini-db-block.green { background: var(--accent-light); }
+.mini-db-block.orange { background: #FFF0E8; }
+.mini-db-block.w2 { flex: 2; }
+
+.mini-phone {
+  width: 140px; height: 280px; background: var(--dark);
+  border-radius: 24px; padding: 8px; position: relative;
+}
+.mini-phone-screen {
+  width: 100%; height: 100%; background: var(--white);
+  border-radius: 18px; overflow: hidden;
+}
+.mini-phone-top { height: 18px; background: var(--dark-50); }
+.mini-phone-content { padding: 10px; }
+.mini-phone-line { height: 5px; background: var(--dark-100); border-radius: 3px; margin-bottom: 5px; }
+.mini-phone-line.short { width: 50%; }
+.mini-phone-line.med { width: 70%; }
+.mini-phone-line.accent { background: var(--primary-light); }
+.mini-phone-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 8px;
+}
+.mini-phone-box { height: 30px; background: var(--dark-50); border-radius: 5px; }
+.mini-phone-box.accent { background: var(--primary-light); }
+
+.portfolio-info { padding: 24px 28px; }
+.portfolio-type {
+  font-size: 0.72rem; font-weight: 600; color: var(--primary);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px;
+}
+.portfolio-name { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
+.portfolio-desc { font-size: 0.88rem; color: var(--dark-400); line-height: 1.55; }
+.portfolio-tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+.portfolio-tags span {
+  padding: 4px 12px; background: var(--dark-50);
+  border-radius: 100px; font-size: 0.7rem; font-weight: 500;
+  color: var(--dark-400);
+}
+
+/* ─── PROCESS ─── */
+.process-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
   position: relative;
 }
-
-.cta p {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  margin-bottom: 50px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.7;
+.process-grid::before {
+  content: '';
+  position: absolute; top: 36px; left: 12%; right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--dark-100), var(--primary-light), var(--primary-light), var(--dark-100));
+  z-index: 0;
+}
+.process-step { text-align: center; position: relative; z-index: 1; padding: 0 16px; }
+.step-number {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--primary-light);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 1.3rem; font-weight: 800; color: var(--primary);
+  transition: all 0.3s;
+}
+.process-step:hover .step-number {
+  background: var(--primary); color: var(--white);
+  border-color: var(--primary);
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(27,77,255,0.2);
+}
+.process-step h3 {
+  font-size: 1.05rem; font-weight: 700; margin-bottom: 10px;
+}
+.process-step p {
+  font-size: 0.88rem; color: var(--dark-400); line-height: 1.6;
 }
 
-/* ═══════ FOOTER ═══════ */
+/* ─── STATS ─── */
+.stats-section {
+  padding: 80px 0;
+  background: var(--dark);
+  color: var(--white);
+  position: relative; overflow: hidden;
+}
+.stats-section::before {
+  content: '';
+  position: absolute; top: -150px; right: -150px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(27,77,255,0.15), transparent 70%);
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+  text-align: center; position: relative; z-index: 1;
+}
+.stat-number {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.7));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 6px; font-weight: 500; }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.testimonial-card {
+  background: var(--white); border: 1px solid var(--dark-100);
+  border-radius: var(--radius); padding: 32px;
+  transition: all 0.3s;
+}
+.testimonial-card:hover { box-shadow: var(--shadow-md); border-color: transparent; }
+.testimonial-stars { color: #FBBF24; font-size: 0.85rem; margin-bottom: 16px; letter-spacing: 2px; }
+.testimonial-text { font-size: 0.92rem; color: var(--dark-600); line-height: 1.7; margin-bottom: 24px; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: var(--white);
+}
+.testimonial-name { font-size: 0.85rem; font-weight: 700; }
+.testimonial-role { font-size: 0.75rem; color: var(--dark-300); }
+
+/* ─── FAQ ─── */
+.faq-list { max-width: 760px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid var(--dark-100);
+  overflow: hidden;
+}
+.faq-question {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; cursor: pointer; width: 100%;
+  background: none; border: none; font-family: inherit;
+  font-size: 1rem; font-weight: 600; color: var(--dark);
+  text-align: left; transition: color 0.2s;
+}
+.faq-question:hover { color: var(--primary); }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--dark-50); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; transition: all 0.3s;
+  font-size: 1.1rem; color: var(--dark-400);
+}
+.faq-item.open .faq-icon { background: var(--primary); color: var(--white); transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s;
+}
+.faq-item.open .faq-answer { max-height: 300px; }
+.faq-answer-inner {
+  padding: 0 0 24px;
+  font-size: 0.92rem; color: var(--dark-400); line-height: 1.7;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #1B4DFF 0%, #6366F1 100%);
+  color: var(--white); text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
+}
+.cta-section h2 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 16px; position: relative; z-index: 1;
+}
+.cta-section p {
+  font-size: 1.1rem; opacity: 0.8;
+  max-width: 480px; margin: 0 auto 40px;
+  line-height: 1.7; position: relative; z-index: 1;
+}
+.btn-white {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px;
+  background: var(--white); color: var(--primary);
+  border: none; border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; transition: all 0.25s;
+  position: relative; z-index: 1;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+
+.cta-features {
+  display: flex; justify-content: center; gap: 40px;
+  margin-top: 40px; position: relative; z-index: 1;
+}
+.cta-feature {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.85rem; font-weight: 500; opacity: 0.85;
+}
+.cta-feature svg { width: 18px; height: 18px; }
+
+/* ─── FOOTER ─── */
 footer {
-  padding: 80px 60px 40px;
-  border-top: 1px solid var(--border);
-  position: relative;
-  z-index: 2;
+  background: var(--dark); color: rgba(255,255,255,0.6);
+  padding: 80px 0 40px;
 }
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
   margin-bottom: 60px;
 }
-
-.footer-brand p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  margin-top: 20px;
-  max-width: 320px;
-}
-
+.footer-brand-desc { font-size: 0.9rem; line-height: 1.7; margin-top: 20px; }
 .footer-col h4 {
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 24px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+  margin-bottom: 20px;
 }
-
 .footer-col a {
-  display: block;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  margin-bottom: 14px;
-  transition: color 0.3s;
+  display: block; font-size: 0.88rem; color: rgba(255,255,255,0.55);
+  text-decoration: none; margin-bottom: 12px; transition: color 0.2s;
 }
-
-.footer-col a:hover { color: var(--gold); }
-
+.footer-col a:hover { color: var(--white); }
 .footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 30px;
-  border-top: 1px solid var(--border-light);
-}
-
-.footer-bottom span {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.08);
   font-size: 0.8rem;
-  color: var(--text-muted);
 }
-
-.footer-socials {
-  display: flex;
-  gap: 20px;
-}
-
+.footer-socials { display: flex; gap: 20px; }
 .footer-socials a {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  text-decoration: none;
-  transition: color 0.3s;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  color: rgba(255,255,255,0.35); text-decoration: none;
+  font-size: 0.8rem; transition: color 0.2s;
 }
+.footer-socials a:hover { color: var(--white); }
 
-.footer-socials a:hover { color: var(--gold); }
-
-/* ═══════ ANIMATIONS ═══════ */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.5); }
-}
-
-@keyframes rotateFloat {
-  from { transform: translateY(-50%) rotate(0deg); }
-  to { transform: translateY(-50%) rotate(360deg); }
-}
-
+/* ─── REVEAL ANIMATION ─── */
 .reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0; transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.22,1,0.36,1);
 }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ═══════ COUNTER ANIMATION ═══════ */
-.counter { display: inline-block; }
-
-/* ═══════ RESPONSIVE ═══════ */
+/* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
-  nav { padding: 16px 30px; }
-  .hero { padding: 0 30px; }
-  .hero-visual { display: none; }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-desc { margin: 0 auto 36px; }
+  .hero-actions { justify-content: center; }
+  .hero-trust { justify-content: center; }
+  .hero-visual { margin-top: 60px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .projects-grid { grid-template-columns: 1fr; }
-  .process-timeline { grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .process-timeline::before { display: none; }
-  .stats-bar { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { grid-template-columns: 1fr 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .process-grid::before { display: none; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 640px) {
   .nav-links { display: none; }
-  .hero h1 { font-size: 2.5rem; }
+  .mobile-menu-btn { display: block; }
   .services-grid { grid-template-columns: 1fr; }
-  .stats-bar { grid-template-columns: 1fr; }
-  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
-  .process-timeline { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; }
-  .services, .projects, .process, .cta, .testimonial { padding: 80px 24px; }
+  .process-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .cta-features { flex-direction: column; align-items: center; gap: 16px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.2rem; }
+  .floating-card { display: none; }
 }
 </style>
 </head>
 <body>
 
-<div class="cursor-glow" id="cursorGlow"></div>
-<div class="geo-pattern"></div>
-
-<!-- ═══════ NAV ═══════ -->
+<!-- ─── NAV ─── -->
 <nav id="mainNav">
-  <a href="#" class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="21,2 38,12 38,30 21,40 4,30 4,12" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
-        <polygon points="21,8 32,14.5 32,27.5 21,34 10,27.5 10,14.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)"/>
-        <line x1="21" y1="2" x2="21" y2="40" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
-        <line x1="4" y1="12" x2="38" y2="30" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
-        <line x1="38" y1="12" x2="4" y2="30" stroke="#C9A84C" stroke-width="0.4" opacity="0.4"/>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="8" fill="#1B4DFF"/>
+        <path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/>
       </svg>
-    </div>
-    <div class="logo-text">ILYR<span>I</span>ANS</div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#diensten">Diensten</a></li>
-    <li><a href="#projecten">Projecten</a></li>
-    <li><a href="#werkwijze">Werkwijze</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
-  </ul>
+      <span class="nav-logo-text">Ily<span>rians</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#diensten">Diensten</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#werkwijze">Werkwijze</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta-btn">Offerte aanvragen</a></li>
+    </ul>
+    <button class="mobile-menu-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
-<!-- ═══════ HERO ═══════ -->
+<!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="hero-bg-lines">
-    <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Digital Studio — Amsterdam
-    </div>
-    <h1>
-      Wij bouwen<br>
-      <span class="italic">digitale</span> <span class="outline">ervaringen</span><br>
-      die beklijven
-    </h1>
-    <p class="hero-desc">
-      Ilyrians is een digitaal bureau dat merken transformeert met op maat gemaakte websites, dashboards en web-applicaties. Strategisch denken, vakkundig bouwen.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start een project</button>
-      <a href="#projecten" class="btn-secondary">Bekijk ons werk</a>
-    </div>
-  </div>
-
-  <div class="hero-visual">
-    <div class="hero-shield">
-      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="250" cy="250" r="200" stroke="#C9A84C" stroke-width="0.5" opacity="0.3"/>
-        <circle cx="250" cy="250" r="160" stroke="#C9A84C" stroke-width="0.3" opacity="0.2"/>
-        <circle cx="250" cy="250" r="120" stroke="#C9A84C" stroke-width="0.3" opacity="0.15"/>
-        <polygon points="250,60 430,155 430,345 250,440 70,345 70,155" stroke="#C9A84C" stroke-width="0.6" opacity="0.2"/>
-        <polygon points="250,100 390,175 390,325 250,400 110,325 110,175" stroke="#C9A84C" stroke-width="0.4" opacity="0.15"/>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ STATS ═══════ -->
-<div class="stats-bar">
-  <div class="stat-item reveal">
-    <div class="stat-number"><span class="counter" data-target="150">0</span>+</div>
-    <div class="stat-label">Projecten Opgeleverd</div>
-  </div>
-  <div class="stat-item reveal">
-    <div class="stat-number"><span class="counter" data-target="98">0</span>%</div>
-    <div class="stat-label">Klanttevredenheid</div>
-  </div>
-  <div class="stat-item reveal">
-    <div class="stat-number"><span class="counter" data-target="12">0</span></div>
-    <div class="stat-label">Specialisten</div>
-  </div>
-  <div class="stat-item reveal">
-    <div class="stat-number"><span class="counter" data-target="8">0</span>+</div>
-    <div class="stat-label">Jaar Ervaring</div>
-  </div>
-</div>
-
-<!-- ═══════ SERVICES ═══════ -->
-<section class="services" id="diensten">
-  <div class="section-header reveal">
-    <div class="section-tag">Wat wij doen</div>
-    <h2 class="section-title">Digitale oplossingen<br>op het <em style="font-family:'Playfair Display';color:var(--gold)">hoogste niveau</em></h2>
-    <p class="section-subtitle">Van concept tot livegang — wij leveren maatwerk digitale producten die jouw merk laten groeien.</p>
-  </div>
-
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-icon">⬡</div>
-      <div class="service-num">01</div>
-      <h3>Websites & Webshops</h3>
-      <p>Custom websites die converteren. Van corporate sites tot complete e-commerce platformen, gebouwd op performance en design.</p>
-      <div class="service-tags">
-        <span>Next.js</span><span>WordPress</span><span>Shopify</span><span>Headless CMS</span>
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="tag"><span class="dot"></span> Full-service digital agency</div>
+        <h1>Apps, websites &amp; dashboards <span class="highlight">laten maken</span></h1>
+        <p class="hero-desc">Concept, design, development &amp; groei. Wij bouwen digitale oplossingen die impact maken — met één team vanuit Nederland.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">
+            Gratis adviesgesprek
+            <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#portfolio" class="btn-outline">Bekijk ons werk</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <div class="trust-avatar" style="background:#1B4DFF">JV</div>
+            <div class="trust-avatar" style="background:#00C896">MA</div>
+            <div class="trust-avatar" style="background:#FF6B35">SK</div>
+            <div class="trust-avatar" style="background:#6366F1">PD</div>
+          </div>
+          <div class="trust-text">
+            <span class="trust-stars">★★★★★</span><br>
+            <strong>4.9/5</strong> — 150+ tevreden klanten
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="service-card reveal">
-      <div class="service-icon">◈</div>
-      <div class="service-num">02</div>
-      <h3>Dashboards & Apps</h3>
-      <p>Interactieve dashboards en web-applicaties die data omzetten in inzicht. Real-time, schaalbaar en intuïtief.</p>
-      <div class="service-tags">
-        <span>React</span><span>Vue.js</span><span>D3.js</span><span>API's</span>
-      </div>
-    </div>
-
-    <div class="service-card reveal">
-      <div class="service-icon">△</div>
-      <div class="service-num">03</div>
-      <h3>UI/UX Design</h3>
-      <p>Onderzoeksgedreven design dat gebruikers begrijpt. Wireframes, prototypes en design systems die schalen.</p>
-      <div class="service-tags">
-        <span>Figma</span><span>Prototyping</span><span>User Research</span><span>Design Systems</span>
-      </div>
-    </div>
-
-    <div class="service-card reveal">
-      <div class="service-icon">◎</div>
-      <div class="service-num">04</div>
-      <h3>Branding & Identiteit</h3>
-      <p>Visuele identiteiten die blijven hangen. Logo's, huisstijlen en merkstrategieën die jouw verhaal vertellen.</p>
-      <div class="service-tags">
-        <span>Logo Design</span><span>Huisstijl</span><span>Strategie</span><span>Guidelines</span>
-      </div>
-    </div>
-
-    <div class="service-card reveal">
-      <div class="service-icon">⬢</div>
-      <div class="service-num">05</div>
-      <h3>SaaS Development</h3>
-      <p>Volledige SaaS-platformen van architectuur tot deployment. Veilig, schaalbaar en gebouwd voor groei.</p>
-      <div class="service-tags">
-        <span>Node.js</span><span>PostgreSQL</span><span>AWS</span><span>Docker</span>
-      </div>
-    </div>
-
-    <div class="service-card reveal">
-      <div class="service-icon">◇</div>
-      <div class="service-num">06</div>
-      <h3>SEO & Performance</h3>
-      <p>Technische optimalisatie die resultaat levert. Snellere laadtijden, hogere rankings en meer organisch verkeer.</p>
-      <div class="service-tags">
-        <span>Core Web Vitals</span><span>SEO Audit</span><span>Analytics</span><span>A/B Testing</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ PROJECTS ═══════ -->
-<section class="projects" id="projecten">
-  <div class="section-header reveal">
-    <div class="section-tag">Portfolio</div>
-    <h2 class="section-title">Geselecteerd werk</h2>
-    <p class="section-subtitle">Een selectie van recente projecten waar we trots op zijn.</p>
-  </div>
-
-  <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-preview">
-        <div class="project-mockup">
-          <div class="mockup-browser">
-            <div class="browser-bar">
-              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
-              <div class="browser-url">aethon-finance.nl</div>
+      <div class="hero-visual">
+        <div class="floating-card floating-card-1">
+          <div class="fc-row">
+            <div class="fc-icon blue">📈</div>
+            <div>
+              <div class="fc-label">Conversie</div>
+              <div class="fc-value green">+247%</div>
             </div>
-            <div class="browser-content">
-              <div class="mock-line short gold"></div>
-              <div class="mock-line long"></div>
-              <div class="mock-line medium"></div>
-              <div class="mock-blocks">
-                <div class="mock-block featured"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
+          </div>
+        </div>
+
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-notch"></div>
+            <div class="phone-app">
+              <div class="phone-app-header">
+                <div class="phone-app-logo">ILYRIANS</div>
+                <div class="phone-app-avatar"></div>
               </div>
+              <div class="phone-card">
+                <div class="phone-card-title">Dashboard</div>
+                <div class="phone-card-bar fill-1"></div>
+                <div class="phone-card-bar fill-2"></div>
+                <div class="phone-card-bar fill-3"></div>
+              </div>
+              <div class="phone-stats">
+                <div class="phone-stat-box">
+                  <div class="phone-stat-num">12.4k</div>
+                  <div class="phone-stat-label">GEBRUIKERS</div>
+                </div>
+                <div class="phone-stat-box">
+                  <div class="phone-stat-num">98%</div>
+                  <div class="phone-stat-label">UPTIME</div>
+                </div>
+              </div>
+              <div class="phone-stats" style="margin-top:8px">
+                <div class="phone-stat-box">
+                  <div class="phone-stat-num" style="color:var(--accent)">€84k</div>
+                  <div class="phone-stat-label">OMZET</div>
+                </div>
+                <div class="phone-stat-box">
+                  <div class="phone-stat-num" style="color:var(--orange)">4.8</div>
+                  <div class="phone-stat-label">RATING</div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-nav-bar">
+              <div class="phone-nav-dot active"></div>
+              <div class="phone-nav-dot"></div>
+              <div class="phone-nav-dot"></div>
+              <div class="phone-nav-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-card floating-card-2">
+          <div class="fc-row">
+            <div class="fc-icon green">✓</div>
+            <div>
+              <div class="fc-label">Project status</div>
+              <div class="fc-value">Live!</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="project-info">
-        <div class="project-type">Dashboard — Fintech</div>
-        <div class="project-name">Aethon Finance</div>
-        <div class="project-desc">Real-time trading dashboard met portfolio analytics</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLIENTS ─── -->
+<section class="clients">
+  <div class="container">
+    <div class="clients-label">Vertrouwd door 150+ bedrijven in Nederland</div>
+    <div class="clients-grid">
+      <div class="client-logo">TechFlow</div>
+      <div class="client-logo">MediCore</div>
+      <div class="client-logo">GreenLeaf</div>
+      <div class="client-logo">Atlas Group</div>
+      <div class="client-logo">Velora</div>
+      <div class="client-logo">NordStar</div>
+      <div class="client-logo">FinBridge</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section class="section gray" id="diensten">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="tag"><span class="dot"></span> Onze diensten</div>
+      <h2>Alles wat je nodig hebt om<br>digitaal te groeien</h2>
+      <p>Van idee tot live product — wij begeleiden het complete traject met één team.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon-wrap blue">📱</div>
+        <h3>App Development</h3>
+        <p>Native en cross-platform apps voor iOS en Android. Van concept tot publicatie in de App Store en Play Store.</p>
+        <div class="service-arrow">Meer info →</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon-wrap green">🌐</div>
+        <h3>Websites & Webshops</h3>
+        <p>Custom websites die converteren. Van corporate sites tot e-commerce platformen, gebouwd op snelheid en design.</p>
+        <div class="service-arrow">Meer info →</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon-wrap purple">📊</div>
+        <h3>Dashboards & Portalen</h3>
+        <p>Interactieve dashboards en web-portalen die complexe data omzetten in helder inzicht. Real-time en schaalbaar.</p>
+        <div class="service-arrow">Meer info →</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon-wrap orange">🎨</div>
+        <h3>UI/UX Design</h3>
+        <p>Onderzoeksgedreven design dat gebruikers begrijpt. Wireframes, prototypes en design systems die schalen.</p>
+        <div class="service-arrow">Meer info →</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon-wrap pink">🚀</div>
+        <h3>SaaS Development</h3>
+        <p>Volledige SaaS-platformen van architectuur tot deployment. Veilig, schaalbaar en gebouwd voor snelle groei.</p>
+        <div class="service-arrow">Meer info →</div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon-wrap cyan">⚡</div>
+        <h3>Onderhoud & Groei</h3>
+        <p>Doorlopend onderhoud, updates en optimalisatie. Wij zorgen dat jouw digitale product blijft presteren.</p>
+        <div class="service-arrow">Meer info →</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="project-card reveal">
-      <div class="project-preview">
-        <div class="project-mockup">
-          <div class="mockup-browser">
-            <div class="browser-bar">
-              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
-              <div class="browser-url">velora-fashion.com</div>
+<!-- ─── PORTFOLIO ─── -->
+<section class="section" id="portfolio">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="tag"><span class="dot"></span> Portfolio</div>
+      <h2>Projecten waar wij<br>trots op zijn</h2>
+      <p>Een selectie van recente opdrachten voor startups, scale-ups en enterprise klanten.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card reveal">
+        <div class="portfolio-visual bg-1">
+          <div class="mini-dashboard">
+            <div class="mini-db-bar"><div class="mini-db-dot r"></div><div class="mini-db-dot y"></div><div class="mini-db-dot g"></div><div class="mini-db-url">aethon-finance.nl</div></div>
+            <div class="mini-db-content">
+              <div class="mini-db-row"><div class="mini-db-block accent h40 w2"></div><div class="mini-db-block h40"></div></div>
+              <div class="mini-db-row"><div class="mini-db-block h60"></div><div class="mini-db-block accent h60"></div><div class="mini-db-block h60"></div></div>
+              <div class="mini-db-row"><div class="mini-db-block h40 w2"></div></div>
             </div>
-            <div class="browser-content">
-              <div class="mock-line medium accent"></div>
-              <div class="mock-line short"></div>
-              <div class="mock-blocks">
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block featured"></div>
-                <div class="mock-block"></div>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Dashboard — Fintech</div>
+          <div class="portfolio-name">Aethon Finance</div>
+          <div class="portfolio-desc">Real-time trading dashboard met portfolio analytics en risicobeheer.</div>
+          <div class="portfolio-tags"><span>React</span><span>Node.js</span><span>WebSocket</span><span>D3.js</span></div>
+        </div>
+      </div>
+
+      <div class="portfolio-card reveal">
+        <div class="portfolio-visual bg-2">
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <div class="mini-phone-top"></div>
+              <div class="mini-phone-content">
+                <div class="mini-phone-line accent" style="width:60%"></div>
+                <div class="mini-phone-line short"></div>
+                <div class="mini-phone-line med"></div>
+                <div class="mini-phone-grid">
+                  <div class="mini-phone-box accent"></div>
+                  <div class="mini-phone-box"></div>
+                  <div class="mini-phone-box"></div>
+                  <div class="mini-phone-box accent"></div>
+                </div>
+                <div class="mini-phone-grid" style="margin-top:5px">
+                  <div class="mini-phone-box" style="height:40px;grid-column:span 2;background:var(--accent-light)"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Mobile App — Healthcare</div>
+          <div class="portfolio-name">NexGen Health</div>
+          <div class="portfolio-desc">Patiëntenportaal met afspraken, dossiers en videoconsulten.</div>
+          <div class="portfolio-tags"><span>Flutter</span><span>Firebase</span><span>HL7 FHIR</span></div>
+        </div>
       </div>
-      <div class="project-info">
-        <div class="project-type">Webshop — Fashion</div>
-        <div class="project-name">Velora Fashion</div>
-        <div class="project-desc">Headless e-commerce platform met 200% meer conversie</div>
-      </div>
-    </div>
 
-    <div class="project-card reveal">
-      <div class="project-preview">
-        <div class="project-mockup">
-          <div class="mockup-browser">
-            <div class="browser-bar">
-              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
-              <div class="browser-url">nexgen-health.io</div>
+      <div class="portfolio-card reveal">
+        <div class="portfolio-visual bg-3">
+          <div class="mini-dashboard">
+            <div class="mini-db-bar"><div class="mini-db-dot r"></div><div class="mini-db-dot y"></div><div class="mini-db-dot g"></div><div class="mini-db-url">velora-fashion.com</div></div>
+            <div class="mini-db-content">
+              <div class="mini-db-row"><div class="mini-db-block orange h40"></div><div class="mini-db-block h40"></div><div class="mini-db-block h40"></div></div>
+              <div class="mini-db-row"><div class="mini-db-block h80 w2 orange"></div><div class="mini-db-block h80"></div></div>
+              <div class="mini-db-row"><div class="mini-db-block h40"></div><div class="mini-db-block orange h40 w2"></div></div>
             </div>
-            <div class="browser-content">
-              <div class="mock-line long gold"></div>
-              <div class="mock-line medium"></div>
-              <div class="mock-line short"></div>
-              <div class="mock-blocks">
-                <div class="mock-block"></div>
-                <div class="mock-block featured"></div>
-                <div class="mock-block"></div>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">Webshop — Fashion</div>
+          <div class="portfolio-name">Velora Fashion</div>
+          <div class="portfolio-desc">Headless e-commerce platform met 200% meer conversie.</div>
+          <div class="portfolio-tags"><span>Next.js</span><span>Shopify</span><span>Tailwind</span></div>
+        </div>
+      </div>
+
+      <div class="portfolio-card reveal">
+        <div class="portfolio-visual bg-4">
+          <div class="mini-phone">
+            <div class="mini-phone-screen">
+              <div class="mini-phone-top"></div>
+              <div class="mini-phone-content">
+                <div class="mini-phone-line" style="width:50%;background:#EDE9FE"></div>
+                <div class="mini-phone-line med"></div>
+                <div class="mini-phone-line short"></div>
+                <div style="height:50px;background:#F5F3FF;border-radius:6px;margin:8px 0"></div>
+                <div class="mini-phone-grid">
+                  <div class="mini-phone-box" style="background:#EDE9FE"></div>
+                  <div class="mini-phone-box"></div>
+                </div>
+                <div style="height:30px;background:#EDE9FE;border-radius:6px;margin-top:5px"></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="project-info">
-        <div class="project-type">Web App — Healthcare</div>
-        <div class="project-name">NexGen Health</div>
-        <div class="project-desc">Patiëntenportaal met afspraken en dossier management</div>
+        <div class="portfolio-info">
+          <div class="portfolio-type">App — Logistiek</div>
+          <div class="portfolio-name">Atlas Logistics</div>
+          <div class="portfolio-desc">Supply chain management app met real-time tracking en route-optimalisatie.</div>
+          <div class="portfolio-tags"><span>React Native</span><span>AWS</span><span>GraphQL</span></div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="project-card reveal">
-      <div class="project-preview">
-        <div class="project-mockup">
-          <div class="mockup-browser">
-            <div class="browser-bar">
-              <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
-              <div class="browser-url">atlas-logistics.eu</div>
-            </div>
-            <div class="browser-content">
-              <div class="mock-line short"></div>
-              <div class="mock-line long accent"></div>
-              <div class="mock-blocks">
-                <div class="mock-block featured"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block"></div>
-                <div class="mock-block featured"></div>
-              </div>
-            </div>
+<!-- ─── PROCESS ─── -->
+<section class="section gray" id="werkwijze">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="tag"><span class="dot"></span> Werkwijze</div>
+      <h2>Hoe wij te werk gaan</h2>
+      <p>Een bewezen aanpak die zorgt voor projecten die op tijd, binnen budget en boven verwachting worden opgeleverd.</p>
+    </div>
+    <div class="process-grid reveal">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <h3>Discovery & Strategie</h3>
+        <p>We duiken in jouw merk, doelgroep en doelen. Marktanalyse, concurrentieonderzoek en strategische planning.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <h3>Design & Prototype</h3>
+        <p>Wireframes worden interactieve prototypes. Iteratief ontwerpen met jouw feedback centraal in het proces.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <h3>Development</h3>
+        <p>Agile sprints met wekelijkse demo's. Schone code, uitgebreid getest en geoptimaliseerd voor performance.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">4</div>
+        <h3>Launch & Groei</h3>
+        <p>Zorgvuldige lancering, monitoring en doorlopende optimalisatie. Wij blijven betrokken na livegang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid reveal">
+      <div>
+        <div class="stat-number" data-target="150">0+</div>
+        <div class="stat-label">Projecten opgeleverd</div>
+      </div>
+      <div>
+        <div class="stat-number" data-target="98">0%</div>
+        <div class="stat-label">Klanttevredenheid</div>
+      </div>
+      <div>
+        <div class="stat-number" data-target="12">0</div>
+        <div class="stat-label">Specialisten in ons team</div>
+      </div>
+      <div>
+        <div class="stat-number" data-target="8">0+</div>
+        <div class="stat-label">Jaar ervaring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="tag"><span class="dot"></span> Reviews</div>
+      <h2>Wat onze klanten zeggen</h2>
+      <p>We zijn trots op de langdurige relaties die we opbouwen met onze klanten.</p>
+    </div>
+    <div class="testimonials-grid reveal">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Ilyrians heeft ons dashboard werkelijk fantastisch gebouwd. De communicatie was helder, het team denkt proactief mee en het eindresultaat overtreft onze verwachtingen."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--primary)">TV</div>
+          <div>
+            <div class="testimonial-name">Thomas de Vries</div>
+            <div class="testimonial-role">CTO — Aethon Finance</div>
           </div>
         </div>
       </div>
-      <div class="project-info">
-        <div class="project-type">SaaS Platform — Logistiek</div>
-        <div class="project-name">Atlas Logistics</div>
-        <div class="project-desc">End-to-end supply chain management platform</div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Van concept tot livegang in 3 maanden. De app die Ilyrians voor ons heeft gebouwd is intuïtief, snel en onze gebruikers zijn enthousiast. Absolute aanrader!"</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--accent)">SB</div>
+          <div>
+            <div class="testimonial-name">Sarah Bakker</div>
+            <div class="testimonial-role">Founder — NexGen Health</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Onze webshop presteert nu 200% beter. Het team van Ilyrians begrijpt zowel design als techniek en levert een product af waar je trots op kunt zijn."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--orange)">MK</div>
+          <div>
+            <div class="testimonial-name">Mark Kuiper</div>
+            <div class="testimonial-role">CEO — Velora Fashion</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ PROCESS ═══════ -->
-<section class="process" id="werkwijze">
-  <div class="section-header reveal">
-    <div class="section-tag">Werkwijze</div>
-    <h2 class="section-title">Van idee naar <em style="font-family:'Playfair Display';color:var(--gold)">resultaat</em></h2>
-    <p class="section-subtitle">Een bewezen aanpak die zorgt voor projecten die op tijd, binnen budget en boven verwachting worden opgeleverd.</p>
-  </div>
-
-  <div class="process-timeline reveal">
-    <div class="process-step">
-      <div class="step-dot"></div>
-      <div class="step-num">FASE 01</div>
-      <h3>Discovery</h3>
-      <p>We duiken diep in jouw merk, doelgroep en doelen. Stakeholder interviews, marktanalyse en strategische planning.</p>
+<!-- ─── FAQ ─── -->
+<section class="section gray" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="tag"><span class="dot"></span> Veelgestelde vragen</div>
+      <h2>Alles wat je wilt weten</h2>
     </div>
-    <div class="process-step">
-      <div class="step-dot"></div>
-      <div class="step-num">FASE 02</div>
-      <h3>Design</h3>
-      <p>Wireframes worden prototypes, prototypes worden pixel-perfect designs. Iteratief, met jouw feedback centraal.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-dot"></div>
-      <div class="step-num">FASE 03</div>
-      <h3>Develop</h3>
-      <p>Schone, performante code. Agile sprints met wekelijkse demo's zodat je altijd ziet wat er gebouwd wordt.</p>
-    </div>
-    <div class="process-step">
-      <div class="step-dot"></div>
-      <div class="step-num">FASE 04</div>
-      <h3>Launch & Groei</h3>
-      <p>Zorgvuldige lancering, monitoring en doorlopende optimalisatie. Wij blijven betrokken na livegang.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════ TECH ═══════ -->
-<section class="tech">
-  <div class="tech-label">Technologieën waar wij mee werken</div>
-  <div class="tech-logos">
-    <div class="tech-item"><div class="icon">⚛</div><span>React</span></div>
-    <div class="tech-item"><div class="icon">▲</div><span>Next.js</span></div>
-    <div class="tech-item"><div class="icon">🟢</div><span>Vue.js</span></div>
-    <div class="tech-item"><div class="icon">🟩</div><span>Node.js</span></div>
-    <div class="tech-item"><div class="icon">🐘</div><span>PostgreSQL</span></div>
-    <div class="tech-item"><div class="icon">☁</div><span>AWS</span></div>
-    <div class="tech-item"><div class="icon">🎨</div><span>Figma</span></div>
-    <div class="tech-item"><div class="icon">🐳</div><span>Docker</span></div>
-  </div>
-</section>
-
-<!-- ═══════ TESTIMONIAL ═══════ -->
-<section class="testimonial">
-  <div class="testimonial-inner reveal">
-    <div class="testimonial-quote">
-      Ilyrians heeft onze visie niet alleen begrepen, maar overtroffen. Het dashboard dat ze hebben gebouwd heeft onze besluitvorming fundamenteel veranderd.
-    </div>
-    <div class="testimonial-author">
-      <div class="testimonial-name">Thomas de Vries</div>
-      <div class="testimonial-role">CTO — Aethon Finance</div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-question">
+          Wat kost het om een app te laten maken?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">De kosten voor een app hangen af van de complexiteit, het aantal schermen, de beoogde platformen (iOS, Android, web) en de gewenste functionaliteiten. Een eenvoudige app begint vanaf €15.000, terwijl een complexere applicatie hoger kan uitvallen. Neem contact op voor een vrijblijvende offerte op maat.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Hoe lang duurt het om een website te bouwen?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Een gemiddelde website duurt 6-10 weken van concept tot livegang. Complexere projecten zoals webshops of dashboards kunnen 12-16 weken in beslag nemen. Wij werken in sprints zodat je gedurende het project altijd voortgang ziet.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Bieden jullie ook onderhoud na oplevering?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Ja, wij bieden Service Level Agreements (SLA's) aan voor doorlopend onderhoud, hosting, updates en monitoring. Zo blijft jouw product altijd up-to-date en optimaal presteren. We begeleiden je ook bij doorontwikkeling na lancering.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Welke technologieën gebruiken jullie?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Wij werken met moderne, bewezen technologieën zoals React, Next.js, Flutter, React Native, Node.js, PostgreSQL, AWS en meer. We kiezen altijd de technologie die het beste past bij jouw project en doelstellingen.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Kan ik een bestaande app of website laten optimaliseren?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Absoluut. Ons team heeft ruime ervaring in het analyseren en verbeteren van bestaande applicaties. Of het nu gaat om snelheid, design, technische problemen of nieuwe functies — wij bieden oplossingen op maat.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          Werken jullie ook voor startups en kleinere bedrijven?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Zeker! We werken voor zowel startups als scale-ups en enterprise klanten. Voor startups denken we graag mee over een MVP-aanpak zodat je snel kunt valideren zonder onnodig hoge kosten.</div></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════ CTA ═══════ -->
-<section class="cta" id="contact">
-  <h2 class="section-title reveal">Klaar om iets<br><em style="font-family:'Playfair Display';color:var(--gold)">bijzonders</em> te bouwen?</h2>
-  <p class="reveal">Laten we kennismaken. Vertel ons over je project en we nemen binnen 24 uur contact op.</p>
-  <div class="reveal">
-    <button class="btn-primary" onclick="window.location.href='mailto:hello@ilyrians.nl'">Neem contact op</button>
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <h2>Klaar om jouw idee te<br>realiseren?</h2>
+    <p>Neem vrijblijvend contact op. Wij helpen je graag verder met een advies op maat.</p>
+    <button class="btn-white" onclick="window.location.href='mailto:hello@ilyrians.nl'">
+      Gratis adviesgesprek plannen
+      <svg viewBox="0 0 18 18" fill="none"><path d="M3.75 9h10.5M9.75 4.5L14.25 9l-4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="cta-features">
+      <div class="cta-feature">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M15 4.5L6.75 12.75 3 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Vrijblijvend
+      </div>
+      <div class="cta-feature">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M15 4.5L6.75 12.75 3 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Binnen 24 uur reactie
+      </div>
+      <div class="cta-feature">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M15 4.5L6.75 12.75 3 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Transparante prijzen
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ═══════ FOOTER ═══════ -->
+<!-- ─── FOOTER ─── -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a href="#" class="logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="21,2 38,12 38,30 21,40 4,30 4,12" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
-            <polygon points="21,8 32,14.5 32,27.5 21,34 10,27.5 10,14.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.05)"/>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="nav-logo" style="margin-bottom:4px">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="36" height="36" rx="8" fill="#1B4DFF"/>
+            <path d="M10 10h5v16h-5zM17 18h9v8h-9zM17 10h9v5h-9z" fill="white" opacity="0.9"/>
           </svg>
-        </div>
-        <div class="logo-text">ILYR<span>I</span>ANS</div>
-      </a>
-      <p>Digitale vakmanschap geïnspireerd door een rijke geschiedenis. Wij bouwen de digitale toekomst.</p>
+          <span class="nav-logo-text" style="color:white">Ily<span>rians</span></span>
+        </a>
+        <p class="footer-brand-desc">Full-service digital agency. Wij ontwerpen en bouwen apps, websites, dashboards en digitale platformen die impact maken.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Diensten</h4>
+        <a href="#">App Development</a>
+        <a href="#">Websites & Webshops</a>
+        <a href="#">Dashboards</a>
+        <a href="#">UI/UX Design</a>
+        <a href="#">SaaS Development</a>
+      </div>
+      <div class="footer-col">
+        <h4>Bedrijf</h4>
+        <a href="#">Over Ons</a>
+        <a href="#">Werkwijze</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Blog</a>
+        <a href="#">Vacatures</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@ilyrians.nl">hello@ilyrians.nl</a>
+        <a href="tel:+31201234567">+31 20 123 4567</a>
+        <a href="#">Amsterdam, Nederland</a>
+        <a href="#">KvK: 12345678</a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Diensten</h4>
-      <a href="#">Websites</a>
-      <a href="#">Dashboards</a>
-      <a href="#">Web Apps</a>
-      <a href="#">UI/UX Design</a>
-      <a href="#">Branding</a>
-    </div>
-    <div class="footer-col">
-      <h4>Bedrijf</h4>
-      <a href="#">Over Ons</a>
-      <a href="#">Team</a>
-      <a href="#">Werkwijze</a>
-      <a href="#">Blog</a>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="mailto:hello@ilyrians.nl">hello@ilyrians.nl</a>
-      <a href="tel:+31201234567">+31 20 123 4567</a>
-      <a href="#">Amsterdam, NL</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 Ilyrians. Alle rechten voorbehouden.</span>
-    <div class="footer-socials">
-      <a href="#">LinkedIn</a>
-      <a href="#">Instagram</a>
-      <a href="#">Dribbble</a>
-      <a href="#">GitHub</a>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Ilyrians. Alle rechten voorbehouden.</span>
+      <div class="footer-socials">
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Dribbble</a>
+        <a href="#">GitHub</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-// ═══════ NAV SCROLL ═══════
+// Nav scroll
 const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-});
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-// ═══════ CURSOR GLOW ═══════
-const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', (e) => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top = e.clientY + 'px';
-});
-
-// ═══════ REVEAL ON SCROLL ═══════
-const reveals = document.querySelectorAll('.reveal');
+// Reveal on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 80);
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-reveals.forEach(el => observer.observe(el));
+// FAQ toggles
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
 
-// ═══════ COUNTER ANIMATION ═══════
-const counters = document.querySelectorAll('.counter');
+// Counter animation
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const el = entry.target;
-      const target = parseInt(el.dataset.target);
-      const duration = 2000;
-      const start = performance.now();
-
-      function update(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(eased * target);
-        if (progress < 1) requestAnimationFrame(update);
-        else el.textContent = target;
-      }
-
-      requestAnimationFrame(update);
-      counterObserver.unobserve(el);
+      entry.target.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        if (!target) return;
+        const suffix = el.textContent.replace(/[0-9]/g, '');
+        const start = performance.now();
+        const duration = 2000;
+        function update(now) {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(eased * target) + suffix;
+          if (p < 1) requestAnimationFrame(update);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(update);
+      });
+      counterObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stats-grid').forEach(el => counterObserver.observe(el));
 
-counters.forEach(el => counterObserver.observe(el));
-
-// ═══════ SMOOTH ANCHOR SCROLLS ═══════
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
   });
 });
 </script>
